@@ -101,23 +101,60 @@ function appendRow_(sheet, row) {
   sheet.getRange(r, 1, 1, values.length).setNumberFormat('@').setValues([values]);
 }
 
+// Photos are saved through the Drive API with the narrow "drive.file" scope,
+// so the script can only see files and folders it created itself — never
+// the rest of the account's Drive. Folder IDs are remembered in script
+// properties because drive.file cannot search for existing folders by name.
 function savePhotos_(row, photos) {
   const urls = {};
   if (!photos.length) return urls;
-  const root = getFolder_(DriveApp.getRootFolder(), PHOTO_FOLDER_NAME);
-  const folder = getFolder_(root, String(row.block_lot).replace(/[^\w-]+/g, '-'));
+  const blockLot = String(row.block_lot).replace(/[^\w-]+/g, '-');
+  const root = folderId_('ROOT', PHOTO_FOLDER_NAME, null);
+  const folder = folderId_('BL:' + blockLot, blockLot, root);
   photos.forEach((p) => {
-    const blob = Utilities.newBlob(Utilities.base64Decode(p.data), p.mime || 'image/jpeg', p.filename);
-    const file = folder.createFile(blob);
-    if (p.caption) file.setDescription(p.caption);
-    urls[p.id] = file.getUrl();
+    const file = uploadFile_(p, folder);
+    urls[p.id] = file.webViewLink;
   });
   return urls;
 }
 
-function getFolder_(parent, name) {
-  const it = parent.getFoldersByName(name);
-  return it.hasNext() ? it.next() : parent.createFolder(name);
+function folderId_(key, name, parentId) {
+  const props = PropertiesService.getScriptProperties();
+  const known = props.getProperty(key);
+  if (known) return known;
+  const meta = { name: name, mimeType: 'application/vnd.google-apps.folder' };
+  if (parentId) meta.parents = [parentId];
+  const res = driveFetch_('https://www.googleapis.com/drive/v3/files?fields=id', {
+    method: 'post',
+    contentType: 'application/json',
+    payload: JSON.stringify(meta),
+  });
+  props.setProperty(key, res.id);
+  return res.id;
+}
+
+function uploadFile_(photo, parentId) {
+  const boundary = 'vbn' + Utilities.getUuid();
+  const meta = { name: photo.filename, parents: [parentId], description: photo.caption || '' };
+  const head = '--' + boundary + '\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n' +
+    JSON.stringify(meta) + '\r\n--' + boundary + '\r\nContent-Type: ' + (photo.mime || 'image/jpeg') + '\r\n\r\n';
+  const tail = '\r\n--' + boundary + '--';
+  const bytes = Utilities.newBlob(head).getBytes()
+    .concat(Utilities.base64Decode(photo.data))
+    .concat(Utilities.newBlob(tail).getBytes());
+  return driveFetch_('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,webViewLink', {
+    method: 'post',
+    contentType: 'multipart/related; boundary=' + boundary,
+    payload: bytes,
+  });
+}
+
+function driveFetch_(url, options) {
+  options.headers = { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() };
+  options.muteHttpExceptions = true;
+  const res = UrlFetchApp.fetch(url, options);
+  if (res.getResponseCode() >= 300) throw new Error('Drive error ' + res.getResponseCode() + ': ' + res.getContentText());
+  return JSON.parse(res.getContentText());
 }
 
 function json_(obj) {
