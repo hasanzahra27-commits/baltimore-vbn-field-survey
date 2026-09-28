@@ -3,7 +3,7 @@ export const CONFIG = {
   // Web app URL of the Google Apps Script backend (see backend/README.md).
   // Leave empty to run without uploading: surveys stay on the phone and can
   // be exported from the menu as a CSV.
-  SYNC_URL: "",
+  SYNC_URL: "https://script.google.com/macros/s/AKfycbzP8mCy32mHUEl1cyx6kNUkIBjCm2X-oGBf1QYikNTgbvHLIrwfW-oZBu4yNmBFjdIb/exec",
 
   // Must match SHARED_KEY in backend/Code.gs. Because this repo is public,
   // this is only a speed bump against stray submissions, not real security.
