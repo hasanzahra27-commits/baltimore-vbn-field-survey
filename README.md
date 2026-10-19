@@ -15,6 +15,13 @@ The app shows whether the property meets the BXP rule (A, or B, or ≥1 of C, or
 
 **Where the data goes:** each survey becomes a row in a Google Sheet (downloadable as CSV) and the photos go into Google Drive. See [backend/README.md](backend/README.md).
 
+## Version 2 (field-test feedback)
+
+The [`v2/`](v2/) folder holds v2, rebuilt by Emma from the October 9 feedback. It's published next to v1 at `https://hasanzahra27-commits.github.io/baltimore-vbn-field-survey/v2/`. v1 stays at the main link.
+
+- v2 uses the same Google Sheet, but it needs the updated upload script: paste [`v2/backend/Code.gs`](v2/backend/Code.gs) into the Apps Script project and deploy a new version (steps in [`v2/backend/README.md`](v2/backend/README.md)). Until then, v2 surveys still upload, but their photo columns show file names instead of Drive links. The new script also works for v1.
+- v1 and v2 keep separate surveys, drafts and offline files on the phone, so using one doesn't affect the other. On a phone, add each to the Home Screen separately (v2 is named "VBN Survey v2").
+
 ## Repo layout
 
 | Path | What it is |
