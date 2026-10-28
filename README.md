@@ -2,6 +2,10 @@
 
 This is a mobile web app for field researchers to record whether sampled properties show signs of vacancy. The data is used to build a new training sample for the i-Team's Vacant Building Notice (VBN) prediction model.
 
+> **Current version:** [v3](v3/), at https://hasanzahra27-commits.github.io/baltimore-vbn-field-survey/v3/
+>
+> **Handing the app off?** See [HANDOFF.md](HANDOFF.md). It's a one-page guide to moving the app and its data to the Baltimore i-Team, and optionally on to DHCD.
+
 **What researchers do:** enter their name, role and code-enforcement status once. Then, for each property:
 1. Pick it from the list (filtered to *Not yet surveyed*).
 2. Tick the BXP vacancy indicators (sections A–D), plus unmonitored open windows/doors and facade damage.
