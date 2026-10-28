@@ -22,6 +22,13 @@ The [`v2/`](v2/) folder holds v2, rebuilt by Emma from the October 9 feedback. I
 - v2 uses the same Google Sheet, but it needs the updated upload script: paste [`v2/backend/Code.gs`](v2/backend/Code.gs) into the Apps Script project and deploy a new version (steps in [`v2/backend/README.md`](v2/backend/README.md)). Until then, v2 surveys still upload, but their photo columns show file names instead of Drive links. The new script also works for v1.
 - v1 and v2 keep separate surveys, drafts and offline files on the phone, so using one doesn't affect the other. On a phone, add each to the Home Screen separately (v2 is named "VBN Survey v2").
 
+## Version 3
+
+The [`v3/`](v3/) folder holds v3, published at `https://hasanzahra27-commits.github.io/baltimore-vbn-field-survey/v3/`. It adds a 🐞 bug-report button that emails the app's owner, red-asterisk required fields, an all-optional "couldn't observe" path, and splits the BXP window item into three. See [`v3/README.md`](v3/README.md).
+
+- v3 needs [`v3/backend/Code.gs`](v3/backend/Code.gs) and [`v3/backend/appsscript.json`](v3/backend/appsscript.json) deployed as a new version (it adds the email permission). Set `BUG_REPORT_EMAIL` in `Code.gs` first. The new script also works for v1 and v2.
+- Like v2, v3 keeps its own surveys and drafts on the phone and is added to the Home Screen separately ("VBN Survey v3").
+
 ## Repo layout
 
 | Path | What it is |
