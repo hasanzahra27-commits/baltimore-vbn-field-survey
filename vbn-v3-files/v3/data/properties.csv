@@ -1,0 +1,21 @@
+block_lot,address,neighborhood,zip,council_district,sample_group,model_score
+0001 001,101 Sample St (FAKE),Sandtown-Winchester,21217,7,High model score,0.91
+0001 002,103 Sample St (FAKE),Sandtown-Winchester,21217,7,High model score,0.88
+0001 003,105 Sample St (FAKE),Sandtown-Winchester,21217,7,Medium model score,0.64
+0002 010,210 Demo Ave (FAKE),Broadway East,21213,13,High model score,0.93
+0002 011,212 Demo Ave (FAKE),Broadway East,21213,13,Medium model score,0.57
+0002 012,214 Demo Ave (FAKE),Broadway East,21213,13,Low model score (control),0.12
+0003 004,1204 Practice Ln (FAKE),Harlem Park,21223,9,High model score,0.86
+0003 005,1206 Practice Ln (FAKE),Harlem Park,21223,9,Medium model score,0.49
+0003 006A,1208 Practice Ln (FAKE),Harlem Park,21223,9,Low model score (control),0.08
+0004 020,3301 Training Rd (FAKE),Park Heights,21215,6,High model score,0.82
+0004 021,3303 Training Rd (FAKE),Park Heights,21215,6,Medium model score,0.61
+0004 022,3305 Training Rd (FAKE),Park Heights,21215,6,Low model score (control),0.15
+0005 030,500 Example Way (FAKE),McElderry Park,21205,13,High model score,0.79
+0005 031,502 Example Way (FAKE),McElderry Park,21205,13,Medium model score,0.52
+0006 040,2710 Pilot Pl (FAKE),Carrollton Ridge,21223,10,High model score,0.87
+0006 041,2712 Pilot Pl (FAKE),Carrollton Ridge,21223,10,Medium model score,0.55
+0007 050,1815 Placeholder Ct (FAKE),Oliver,21213,12,High model score,0.9
+0007 051,1817 Placeholder Ct (FAKE),Oliver,21213,12,Low model score (control),0.2
+0008 060,4400 Mockup Dr (FAKE),Belair-Edison,21213,13,Medium model score,0.46
+0008 061,4402 Mockup Dr (FAKE),Belair-Edison,21213,13,Low model score (control),0.1
