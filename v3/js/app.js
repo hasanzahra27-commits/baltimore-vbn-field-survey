@@ -45,7 +45,7 @@ const REQ = `<span class="req" title="Required">*<span class="sr-only"> (require
 // Required only when the property was observed. If it couldn't be (e.g. unsafe
 // to approach), nothing more is required, so no one feels pushed to go closer.
 const REQ_IF_OBSERVED = `<span data-show="observed">${REQ}</span><span class="opt" data-show="notObserved">optional</span>`;
-const REQ_KEY = `<p class="muted small key"><span class="req">*</span> Required. Everything else can be skipped.</p>`;
+const REQ_KEY = `<p class="muted small key"><span class="req">*</span> Required</p>`;
 const OPT = `<span class="opt">optional</span>`;
 const radio = (name, value, label, current) =>
   `<label><input type="radio" name="${name}" value="${h(value)}" ${current === value ? "checked" : ""}><span>${h(label)}</span></label>`;
@@ -396,7 +396,7 @@ function renderSurvey() {
 
       ${SECTIONS.map((sec) => `
         <section class="card crit" data-show="observed">
-          <h2>${h(sec.title)} ${OPT}</h2>
+          <h2>${h(sec.title)}</h2>
           <p class="muted small intro">${h(sec.intro)} Tick everything that applies.</p>
           ${sec.groups.map((g) => `
             ${g.title ? `<h3>${h(g.title)}</h3>` : ""}
@@ -404,7 +404,7 @@ function renderSurvey() {
             <div class="items">${g.cols.map((col) => indicatorRow(col, d)).join("")}</div>`).join("")}
           ${sec.facade ? `
             <fieldset class="field facade">
-              <legend>${h(FACADE_DAMAGE.label)} ${OPT}</legend>
+              <legend>${h(FACADE_DAMAGE.label)}</legend>
               <div class="seg">${FACADE_DAMAGE.options.map((o) => radio("facade_damage", o, o, d.facade_damage)).join("")}</div>
               <div class="details" data-show="facadeDamage">
                 <textarea data-detail="${FACADE_DAMAGE.col}" rows="2" placeholder="Details (optional): ${h(FACADE_DAMAGE.prompt)}">${h(d.details[FACADE_DAMAGE.col])}</textarea>

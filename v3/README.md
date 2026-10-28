@@ -5,7 +5,7 @@ This is a mobile web app for field researchers to record whether sampled propert
 This is **v3**, published at `https://hasanzahra27-commits.github.io/baltimore-vbn-field-survey/v3/`. Changes from v2:
 
 - A 🐞 **bug button** in the header (also in the Menu). Reports go to a "Bug reports" tab in the Sheet and are emailed to `BUG_REPORT_EMAIL` in [`backend/Code.gs`](backend/Code.gs). Reports made offline send once there's signal.
-- Required questions are marked with a red asterisk (*), explained at the bottom of each form.
+- Required questions are marked with a red asterisk (*), with a "* Required" key at the bottom of each form.
 - If the property couldn't be observed, everything after that answer is optional, including the reason, the location and photos.
 - The BXP window item (D5) is split into three: dirty or clouded, covered with blankets/towels, and no curtains or blinds. Ticking any number of them still counts as **one** D sign, and the export keeps the old combined `d5_windows_dirty_or_coverings` column.
 - The GPS note says "accurate to about N m" instead of "within N m".
