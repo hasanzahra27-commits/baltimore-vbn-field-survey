@@ -16,6 +16,16 @@ APP = ROOT
 DATA = os.path.join(ROOT, "dev-data")
 CSV_PATH = os.path.join(DATA, "surveys.csv")
 BUGS_PATH = os.path.join(DATA, "bugs.csv")
+GROUPS_PATH = os.path.join(DATA, "groups.json")
+# Dashboard password for local testing only. The real one is set in Code.gs.
+DASHBOARD_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "dev")
+
+
+def read_groups():
+    if not os.path.exists(GROUPS_PATH):
+        return {}
+    with open(GROUPS_PATH, encoding="utf-8") as f:
+        return json.load(f)
 
 
 def read_rows(path=CSV_PATH):
@@ -62,12 +72,28 @@ class Handler(SimpleHTTPRequestHandler):
             p["count"] += 1
             if r["submitted_at"] > p["last_submitted_at"]:
                 p["last_submitted_at"], p["last_observer"] = r["submitted_at"], r["observer_name"]
-        self.reply({"ok": True, "properties": props})
+        self.reply({"ok": True, "properties": props, "groups": read_groups()})
 
     def do_POST(self):
         if urlparse(self.path).path != "/api":
             return self.send_error(404)
         body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+        if body.get("type") in ("dashboard", "assign"):
+            # Same as the dashboard branch of doPost in Code.gs.
+            if body.get("password") != DASHBOARD_PASSWORD:
+                return self.reply({"ok": False, "error": "Wrong password"})
+            groups = read_groups()
+            if body["type"] == "assign":
+                for a in body.get("assignments", []):
+                    groups[a["block_lot"]] = a.get("group", "")
+                groups = {k: v for k, v in groups.items() if v}
+                os.makedirs(DATA, exist_ok=True)
+                with open(GROUPS_PATH, "w", encoding="utf-8") as f:
+                    json.dump(groups, f, indent=1)
+                return self.reply({"ok": True, "groups": groups})
+            _, rows = read_rows()
+            cols = body.get("columns", [])
+            return self.reply({"ok": True, "groups": groups, "rows": [{c: r.get(c, "") for c in cols if c in r} for r in rows]})
         if body.get("type") == "bug":
             # Same as saveBug_ in Code.gs, minus the email.
             report = body["report"]

@@ -15,7 +15,7 @@ There's nothing to install and no coding. It takes about an hour in total.
 
 Follow [v3/backend/README.md](v3/backend/README.md), signed in to the i-Team Google account. You'll create a new Google Sheet, paste in the upload script, and get a **web app address** ending in `/exec`. Keep that address for step 3.
 
-When the guide says to paste `Code.gs`, also fill in `BUG_REPORT_EMAIL` with the i-Team contact who should get bug reports.
+When the guide says to paste `Code.gs`, also fill in `BUG_REPORT_EMAIL` with the i-Team contact who should get bug reports, and `DASHBOARD_PASSWORD` with the password for the i-Team dashboard.
 
 ## 2. Copy over the results collected so far (Students and i-Team, about 10 minutes)
 
@@ -37,7 +37,7 @@ The app's link changes to `https://<i-Team GitHub username>.github.io/baltimore-
 
 ## 4. Add the real property list and check bug reports (i-Team, about 10 minutes)
 
-1. **Property list.** Make a spreadsheet with columns `block_lot` and `address`, plus optional columns like `neighborhood`. Download it as a CSV file. In the repo, open `v3/data`, click **Add file**, then **Upload files**, upload it as `properties.csv` to replace the old one, and click **Commit changes**.
+1. **Property list.** Make a spreadsheet with columns `block_lot` and `address`, plus optional columns like `neighborhood`. To split the work between volunteer groups, add a `group` column and give each property a group name. Volunteers then see only their group's properties; see [Assigning properties to groups](v3/README.md#assigning-properties-to-groups). Download it as a CSV file. In the repo, open `v3/data`, click **Add file**, then **Upload files**, upload it as `properties.csv` to replace the old one, and click **Commit changes**.
 2. **Bug reports.** In the app, tap 🐞 and send a test report. It should appear on a **Bug reports** tab in your Sheet and arrive by email.
 
 **Note:** the repo is **public**, so anyone online can see `properties.csv`. Before uploading the real list, check with the City whether addresses can be public. Don't include model scores or other sensitive columns. Also confirm that storing photos of private homes in Google Drive meets City data policy.
@@ -47,6 +47,7 @@ The app's link changes to `https://<i-Team GitHub username>.github.io/baltimore-
 Keeping the app running takes one person:
 
 - **Update the property list** when the sample changes, as in step 4.
+- **Watch progress and assign groups** on the password-protected [i-Team dashboard](v3/README.md#i-team-dashboard).
 - **Read the results** in the Google Sheet. To export them, choose **File → Download → Comma-separated values (.csv)**.
 - **Respond to bug reports** that arrive by email.
 

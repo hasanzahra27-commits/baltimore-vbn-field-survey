@@ -2,12 +2,14 @@
 
 import { CONFIG, APP_VERSION } from "./config.js";
 import {
-  ALL_CHECK_COLS, FACADE_DAMAGE, DISTRESS_SCALE, DISTRESS_SCALE_VERSION, D5_COL, D5_PARTS, d5Ticked, evaluate,
+  ALL_CHECK_COLS, FACADE_DAMAGE, OCCUPANCY_RATING, DISTRESS_SCALE, DISTRESS_SCALE_VERSION, D5_COL, D5_PARTS, d5Ticked, evaluate,
 } from "./checklist.js";
 import { allSurveys, putSurvey } from "./db.js";
 
 const yn = (v) => (v ? "Yes" : "No");
-const ynBlank = (v) => (v === true ? "Yes" : v === false ? "No" : "");
+
+// What an i-Team member picks as their group to see every property.
+export const ALL_GROUPS = "__all";
 
 // Labels for surveys submitted with app v1, which used a 0–5 scale.
 const V1_SCALE_LABELS = ["Blue sky vacant", "Severe distress", "Serious distress", "Moderate distress", "Minor signs", "No signs of distress"];
@@ -21,8 +23,6 @@ export function normalize(s) {
     ? { atProperty: true, gps: d.gps, manual: "", observedAt: "" }
     : { atProperty: null, gps: null, manual: "", observedAt: "" };
   d.finding ??= { housesFromCorner: "", countedFrom: "", frontColor: "", housesFromCornerBack: "", backColor: "" };
-  d.secured ??= null;
-  d.secured_details ??= "";
   d.no_back_photo ??= false;
   d.no_back_reason ??= "";
   if ("b_people_entering_without_keys" in d.checks) {
@@ -57,6 +57,7 @@ export function buildRow(s) {
     observer_name: s.observer.name,
     observer_role: s.observer.role === "Other" ? `Other: ${s.observer.roleOther}` : s.observer.role,
     code_enforcement_officer: yn(s.observer.codeEnforcement),
+    observer_group: s.observer.group === ALL_GROUPS ? "All groups" : s.observer.group ?? "",
     observation_status: d.observation_status,
     not_observed_reason: observed ? "" : d.not_observed_reason,
     location_method: loc.atProperty === true ? "GPS at property" : loc.atProperty === false ? "Entered by hand later" : "",
@@ -81,6 +82,7 @@ export function buildRow(s) {
   }
   row[FACADE_DAMAGE.col] = observed ? d.facade_damage ?? "" : "";
   row[`${FACADE_DAMAGE.col}_details`] = observed && d.facade_damage && d.facade_damage !== "None" ? details[FACADE_DAMAGE.col] ?? "" : "";
+  row[OCCUPANCY_RATING.col] = observed ? d.occupancy_rating ?? "" : "";
 
   // Calculated here only; the researcher never sees the result.
   row.bxp_c_count = observed ? result.cCount : "";
@@ -97,8 +99,6 @@ export function buildRow(s) {
   row.distress_score = scored ? d.score : "";
   row.distress_label = scored ? labels[d.score] ?? "" : "";
 
-  row.secured_during_visit = observed ? ynBlank(d.secured) : "";
-  row.secured_details = observed && d.secured ? d.secured_details ?? "" : "";
   row.general_comments = d.comments ?? "";
 
   // Photo cells hold "file | note" lines. The backend swaps each file name
@@ -108,8 +108,6 @@ export function buildRow(s) {
   row.photo_front = lines(photo("front"));
   row.photo_back = lines(photo("back"));
   row.no_back_photo_reason = observed && d.no_back_photo && !photo("back").length ? d.no_back_reason ?? "" : "";
-  row.photo_secured_before = lines(photo("secure_before"));
-  row.photo_secured_after = lines(photo("secure_after"));
   row.concern_photo_count = photo("concern").length;
   row.concern_photos = lines(photo("concern"));
 
@@ -219,5 +217,5 @@ export async function fetchRemoteStatus() {
   const url = `${CONFIG.SYNC_URL}?action=status&key=${encodeURIComponent(CONFIG.SHARED_KEY)}`;
   const res = await fetch(url, { redirect: "follow" });
   const json = await res.json();
-  return json.ok ? json.properties : null;
+  return json.ok ? { properties: json.properties, groups: json.groups || {} } : null;
 }

@@ -11,13 +11,13 @@ export const INDICATORS = {
   // Distress
   c2_multiple_boarded_openings: { bxp: "c", text: "More than one boarded window or door",
     prompt: "Which windows or doors, and how many?" },
-  c3_broken_windows: { bxp: "c", text: "One or more broken windows",
+  c3_broken_windows: { bxp: "c", text: "One or more broken windows or doors",
     prompt: "Which windows, and how many?" },
-  x_unmonitored_open_windows_doors: { text: "Unmonitored open windows or doors",
+  x_unmonitored_open_windows_doors: { text: "Unmonitored open or missing windows or doors",
     prompt: "Which windows or doors are open?" },
   c4_roof_missing_or_structural: { bxp: "c", text: "No roof, or roof with serious structural issues",
     prompt: "What's wrong with the roof?" },
-  c5_building_structural_issues: { bxp: "c", text: "Building has serious structural issues (caving-in porch, sagging structure)",
+  c5_building_structural_issues: { bxp: "c", text: "Building has serious structural issues (caving-in porch, sagging structure, cracked foundation)",
     prompt: "What structural problems, and where?" },
   d8_poor_physical_condition: { bxp: "d", text: "Overall physical condition is bad (falling gutters, open roof, fire damage, broken porch/steps)",
     prompt: "What's in bad condition?" },
@@ -29,10 +29,23 @@ export const INDICATORS = {
     prompt: "Where, and how overgrown?" },
   d4_differs_from_neighbors: { bxp: "d", text: "Marked difference from neighboring properties",
     prompt: "How does it differ from the houses around it?" },
+  // Added after the 10/29 review. Not BXP items, so they don't change the BXP result.
+  x_vandalism_graffiti: { text: "Vandalism or graffiti",
+    prompt: "What, and where?" },
+  x_alley_disrepair: { text: "Alley behind the property is in significant disrepair",
+    prompt: "What's wrong with the alley (dumping, overgrowth, broken paving)?" },
+  x_yard_inaccessible_front: { text: "Front yard so overgrown the property can't be reached",
+    prompt: "What's blocking the way?" },
+  x_yard_inaccessible_back: { text: "Back yard so overgrown the property can't be reached",
+    prompt: "What's blocking the way?" },
 
   // Occupancy: signs no one lives there
   x_fully_blocked_off: { text: "Property is completely blocked off (cyclone fencing, all openings sealed)",
     prompt: "How is it blocked off (fencing, sealed doors or windows)?" },
+  x_fire_or_smoke_damage: { text: "Fire or smoke damage",
+    prompt: "Where (windows, roof, siding), and how bad?" },
+  x_trash_bins_broken: { text: "Trash bins are broken",
+    prompt: "What's wrong with them?" },
   d2_accumulated_mail: { bxp: "d", text: "Mail piling up",
     prompt: "Where is the mail, and about how much?" },
   d9_lockbox_on_door: { bxp: "d", text: "Lock box on the door (front or back)",
@@ -45,6 +58,8 @@ export const INDICATORS = {
     prompt: "Which windows, and what are they covered with?" },
   d5c_windows_no_coverings: { bxp: "d", text: "Windows have no curtains or blinds at all (bare windows)",
     prompt: "Which windows, and what can you see inside?" },
+  x_curtains_blinds_disrepair: { text: "Blinds or curtains significantly broken or in disrepair (torn, falling down, hanging off)",
+    prompt: "Which windows, and what do they look like?" },
   d6_interior_storage_or_empty: { bxp: "d", text: "Interior has an overabundance of furniture (looks like storage) or is empty",
     prompt: "What can you see inside?" },
   d7_windows_open_closed_wrong_season: { bxp: "d", text: "Windows inappropriately open or closed (open in winter, closed in summer)",
@@ -70,9 +85,17 @@ export const INDICATORS = {
 
 export const FACADE_DAMAGE = {
   col: "x_facade_damage",
-  label: "State of facade damage",
+  label: "State of facade damage (e.g. peeling paint, missing siding, crumbling features)",
   prompt: "What damage, and where?",
   options: ["None", "Minor", "Moderate", "Severe"],
+};
+
+// The researcher's overall call, after the signs above. Required when the
+// property was observed. Not part of the BXP rule.
+export const OCCUPANCY_RATING = {
+  col: "occupancy_rating",
+  label: "Occupancy rating",
+  options: ["Occupied", "Unsure", "Vacant"],
 };
 
 // Display order: the most objective, visible things first; hearsay last.
@@ -85,7 +108,9 @@ export const SECTIONS = [
       cols: [
         "c2_multiple_boarded_openings", "c3_broken_windows", "x_unmonitored_open_windows_doors",
         "c4_roof_missing_or_structural", "c5_building_structural_issues", "d8_poor_physical_condition",
-        "c1_porch_covered_or_debris", "d3_trash_garbage", "d1_unkempt_grass_bushes", "d4_differs_from_neighbors",
+        "c1_porch_covered_or_debris", "d3_trash_garbage", "d1_unkempt_grass_bushes",
+        "x_yard_inaccessible_front", "x_yard_inaccessible_back", "x_alley_disrepair", "d4_differs_from_neighbors",
+        "x_vandalism_graffiti",
       ],
     }],
     facade: true,
@@ -98,14 +123,15 @@ export const SECTIONS = [
       {
         title: "Signs no one lives there",
         cols: [
-          "x_fully_blocked_off", "d2_accumulated_mail", "d9_lockbox_on_door",
+          "x_fully_blocked_off", "x_fire_or_smoke_damage", "x_trash_bins_broken", "d2_accumulated_mail", "d9_lockbox_on_door",
           "d5a_windows_dirty_or_clouded", "d5b_windows_inappropriate_coverings", "d5c_windows_no_coverings",
-          "d6_interior_storage_or_empty", "d7_windows_open_closed_wrong_season",
+          "x_curtains_blinds_disrepair", "d6_interior_storage_or_empty", "d7_windows_open_closed_wrong_season",
         ],
       },
       {
         title: "Signs someone is there",
         cols: ["b1_people_seen_through_door", "b2_people_using_unusual_openings", "b3_other_signs_of_living"],
+        rating: true, // the occupancy rating follows this group
       },
       {
         title: "What neighbors told you",

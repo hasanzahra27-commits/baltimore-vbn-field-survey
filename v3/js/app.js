@@ -1,12 +1,12 @@
 import { CONFIG, APP_VERSION } from "./config.js";
 import {
-  INDICATORS, SECTIONS, FACADE_DAMAGE, DISTRESS_SCALE, DISTRESS_SCALE_VERSION,
+  INDICATORS, SECTIONS, FACADE_DAMAGE, OCCUPANCY_RATING, DISTRESS_SCALE, DISTRESS_SCALE_VERSION,
   ROLES, NOT_OBSERVED_REASONS, NO_BACK_PHOTO_REASONS,
 } from "./checklist.js";
 import { putSurvey, allSurveys, deleteSurvey } from "./db.js";
 import { parseCsv, toCsv } from "./csv.js";
 import {
-  buildRow, normalize, syncPending, fetchRemoteStatus, queueBug, sendPendingBugs, pendingBugCount,
+  buildRow, normalize, syncPending, fetchRemoteStatus, queueBug, sendPendingBugs, pendingBugCount, ALL_GROUPS,
 } from "./sync.js";
 
 const $view = document.getElementById("view");
@@ -17,6 +17,7 @@ const state = {
   properties: [],
   surveys: [],
   remote: readJson("vbn3.remote", {}),
+  assignments: readJson("vbn3.groups", {}), // block_lot → group, set on the i-Team dashboard
   observer: readJson("vbn3.observer", null),
   filter: "todo",
   query: "",
@@ -101,6 +102,32 @@ async function loadProperties() {
   }
 }
 
+// ---------- groups ----------
+
+// The i-Team can split the property list into groups (CONFIG.GROUP_COLUMN).
+// Each volunteer picks their group once and sees only those properties.
+// A group set on the i-Team dashboard wins over the list's own column.
+const groupOf = (p) => (state.assignments[p.block_lot] || p[CONFIG.GROUP_COLUMN] || "").trim();
+const groupNames = () => [...new Set(state.properties.map(groupOf).filter(Boolean))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+const ITEAM_ROLE = "i-Team staff";
+
+// True when the list has groups but this phone hasn't picked a valid one,
+// e.g. a new phone, or the i-Team renamed the groups.
+function needsGroup() {
+  const groups = groupNames();
+  if (!groups.length) return false;
+  const g = state.observer?.group;
+  return !(g === ALL_GROUPS || groups.includes(g));
+}
+
+function visibleProperties() {
+  const g = state.observer?.group;
+  if (!groupNames().length || g === ALL_GROUPS) return state.properties;
+  return state.properties.filter((p) => groupOf(p) === g);
+}
+
+const groupLabel = (g) => (g === ALL_GROUPS ? "All groups" : g);
+
 async function refreshSurveys() {
   state.surveys = (await allSurveys()).map(normalize).sort((a, b) => (b.updatedAt || "").localeCompare(a.updatedAt || ""));
 }
@@ -134,11 +161,20 @@ async function syncNow({ quiet = true } = {}) {
     if (!quiet && r.failed) toast(`Upload failed: ${r.error}`);
     await sendPendingBugs().catch(() => {}); // stays queued; retried next sync
     const remote = await fetchRemoteStatus().catch(() => null);
-    if (remote) { state.remote = remote; writeJson("vbn3.remote", remote); }
+    if (remote) {
+      state.remote = remote.properties;
+      state.assignments = remote.groups;
+      writeJson("vbn3.remote", state.remote);
+      writeJson("vbn3.groups", state.assignments);
+    }
   } finally {
     state.syncing = false;
     await refreshSurveys();
     renderPill();
+    refreshGroupPicker();
+    // Groups changed on the dashboard and this phone's group is gone: ask again
+    // (but never mid-survey, or over a form the volunteer is typing in).
+    if (needsGroup() && !/^#\/(survey|bug|observer)/.test(location.hash)) { render(); return; }
     const onList = location.hash.startsWith("#/list") || !location.hash;
     if (onList && document.activeElement?.id === "search") renderListItems();
     else if (onList || location.hash.startsWith("#/menu")) render();
@@ -168,7 +204,7 @@ $pill.addEventListener("click", () => {
 
 function render() {
   const hash = location.hash || "#/list";
-  if (!state.observer && !hash.startsWith("#/observer")) { location.hash = "#/observer"; return; }
+  if ((!state.observer || needsGroup()) && !hash.startsWith("#/observer") && !hash.startsWith("#/bug")) { location.hash = "#/observer"; return; }
   if (hash.startsWith("#/observer")) return renderObserver();
   if (hash.startsWith("#/menu")) return renderMenu();
   if (hash.startsWith("#/bug")) return renderBug();
@@ -187,12 +223,25 @@ window.addEventListener("hashchange", (e) => {
 // ---------- observer ----------
 
 function renderObserver() {
-  const o = state.observer || { name: "", role: "", codeEnforcement: null };
+  const o = state.observer || { name: "", role: "", codeEnforcement: null, group: "" };
   const role = o.role === "Other" ? o.roleOther : o.role;
+  const groups = groupNames();
+  const groupPicker = groups.length ? `
+        <label class="field">Your group ${REQ}
+          <select name="group">
+            <option value="">Choose…</option>
+            ${groups.map((g) => `<option ${o.group === g ? "selected" : ""}>${h(g)}</option>`).join("")}
+            <option value="${ALL_GROUPS}" ${o.group === ALL_GROUPS ? "selected" : ""}>All groups (i-Team staff only)</option>
+          </select>
+        </label>
+        <p class="muted small">You'll only see the properties assigned to your group.</p>` : "";
+  const groupNotice = state.observer && needsGroup()
+    ? `<p class="notice">The property list has changed. Choose your group again to continue.</p>` : "";
   $view.innerHTML = `
     <section class="card">
       <h1>About you</h1>
       <p class="muted">Saved on this phone and attached to every survey you submit.</p>
+      ${groupNotice}
       <form id="observer-form" novalidate>
         <label class="field">Your name ${REQ}
           <input name="name" required autocomplete="name" value="${h(o.name)}">
@@ -205,6 +254,7 @@ function renderObserver() {
             <label><input type="radio" name="codeEnforcement" value="no" ${o.codeEnforcement === false ? "checked" : ""}><span>No</span></label>
           </div>
         </fieldset>
+        ${groupPicker}
         <p class="error" id="observer-error"></p>
         <button class="btn primary block" type="submit">Save and continue</button>
         ${REQ_KEY}
@@ -219,10 +269,13 @@ function renderObserver() {
       name: form.name.value.trim(),
       role: readChoice(form, "role"),
       codeEnforcement: ce === "yes" ? true : ce === "no" ? false : null,
+      group: form.group?.value ?? "",
     };
     const err = !next.name ? "Enter your name."
       : !next.role ? "Choose or type your role."
       : next.codeEnforcement === null ? "Answer the code enforcement question."
+      : groups.length && !next.group ? "Choose your group."
+      : next.group === ALL_GROUPS && next.role !== ITEAM_ROLE ? "Only i-Team staff can see all groups. Choose your group."
       : "";
     document.getElementById("observer-error").textContent = err;
     if (err) return;
@@ -232,16 +285,29 @@ function renderObserver() {
   });
 }
 
+// Brings the group dropdown up to date without clearing what's been typed,
+// e.g. when the dashboard's groups arrive after the form first appeared.
+function refreshGroupPicker() {
+  const sel = document.querySelector('#observer-form select[name="group"]');
+  if (!sel) return;
+  const keep = sel.value;
+  const groups = groupNames();
+  sel.innerHTML = `<option value="">Choose…</option>${groups.map((g) => `<option>${h(g)}</option>`).join("")}
+    <option value="${ALL_GROUPS}">All groups (i-Team staff only)</option>`;
+  sel.value = [...sel.options].some((o) => o.value === keep) ? keep : "";
+}
+
 // ---------- property list ----------
 
 function renderList() {
-  const counts = { todo: 0, done: 0, all: state.properties.length };
-  for (const p of state.properties) {
+  const props = visibleProperties();
+  const counts = { todo: 0, done: 0, all: props.length };
+  for (const p of props) {
     const st = propertyStatus(p.block_lot);
     if (st === "todo" || st === "draft") counts.todo++; else counts.done++;
   }
   $view.innerHTML = `
-    <div class="observer-line">Surveying as <a href="#/observer"><strong>${h(state.observer.name)}</strong></a> · ${h(state.observer.role)}</div>
+    <div class="observer-line">Surveying as <a href="#/observer"><strong>${h(state.observer.name)}</strong></a> · ${h(state.observer.role)}${state.observer.group ? ` · ${h(groupLabel(state.observer.group))}` : ""}</div>
     <div class="search-wrap">
       <input type="search" id="search" placeholder="Search address or block-lot" value="${h(state.query)}" autocomplete="off">
     </div>
@@ -261,7 +327,7 @@ function renderList() {
 
 function renderListItems() {
   const q = state.query.trim().toLowerCase();
-  const items = state.properties.filter((p) => {
+  const items = visibleProperties().filter((p) => {
     const st = propertyStatus(p.block_lot);
     if (state.filter === "todo" && !(st === "todo" || st === "draft")) return false;
     if (state.filter === "done" && !(st === "pending" || st === "done")) return false;
@@ -296,6 +362,7 @@ function newSurvey(property) {
       not_observed_reason: "",
       checks: {},
       facade_damage: null,
+      occupancy_rating: null,
       score: null,
       comments: "",
     },
@@ -401,7 +468,13 @@ function renderSurvey() {
           ${sec.groups.map((g) => `
             ${g.title ? `<h3>${h(g.title)}</h3>` : ""}
             ${g.intro ? `<p class="muted small intro">${h(g.intro)}</p>` : ""}
-            <div class="items">${g.cols.map((col) => indicatorRow(col, d)).join("")}</div>`).join("")}
+            <div class="items">${g.cols.map((col) => indicatorRow(col, d)).join("")}</div>
+            ${g.rating ? `
+              <fieldset class="field facade">
+                <legend>${h(OCCUPANCY_RATING.label)} ${REQ}</legend>
+                <div class="seg">${OCCUPANCY_RATING.options.map((o) => radio("occupancy_rating", o, o, d.occupancy_rating)).join("")}</div>
+                <p class="error" data-err="occupancy"></p>
+              </fieldset>` : ""}`).join("")}
           ${sec.facade ? `
             <fieldset class="field facade">
               <legend>${h(FACADE_DAMAGE.label)}</legend>
@@ -465,23 +538,6 @@ function renderSurvey() {
             </div>
           </div>
         </div>
-        <div class="photo-slot" data-show="observed">
-          <div class="photo-label">Was the property secured during this visit? ${OPT}</div>
-          <p class="muted small">For example, boarded or locked after illegal occupants were found.</p>
-          <div class="seg">
-            ${radio("secured", "yes", "Yes", d.secured === true ? "yes" : d.secured === false ? "no" : "")}
-            ${radio("secured", "no", "No", d.secured === true ? "yes" : d.secured === false ? "no" : "")}
-          </div>
-          <div data-show="secured" class="sub">
-            <label class="field">What was done, and by whom? ${OPT}
-              <textarea data-field="secured_details" rows="2">${h(d.secured_details)}</textarea>
-            </label>
-            <div class="photo-label">Before ${OPT}</div>
-            ${photoGroup("secure_before", "Add before photo")}
-            <div class="photo-label">After ${OPT}</div>
-            ${photoGroup("secure_after", "Add after photo")}
-          </div>
-        </div>
         <div class="photo-slot">
           <div class="photo-label">Other photos ${OPT}</div>
           ${photoGroup("concern", "Add another photo")}
@@ -523,7 +579,6 @@ function applyVisibility() {
     noBack: d.no_back_photo,
     backRequired: observed && !d.no_back_photo,
     backOptional: !(observed && !d.no_back_photo),
-    secured: d.secured === true,
   };
   document.querySelectorAll("#survey [data-show]").forEach((el) => el.classList.toggle("hidden", !when[el.dataset.show]));
   document.querySelectorAll("#survey [data-details-for]").forEach((el) =>
@@ -573,8 +628,8 @@ function bindSurvey() {
     else if (t.dataset.find) d.finding[t.dataset.find] = t.value;
     else if (t.name === "observation_status") d.observation_status = t.value;
     else if (t.name === "at_property") d.location.atProperty = yesNo(t.value);
-    else if (t.name === "secured") d.secured = yesNo(t.value);
     else if (t.name === "facade_damage") d.facade_damage = t.value;
+    else if (t.name === "occupancy_rating") d.occupancy_rating = t.value;
     else if (t.name === "score") d.score = Number(t.value);
     else if (t.name === "comments") d.comments = t.value;
     else if (t.dataset.caption) {
@@ -750,6 +805,7 @@ async function submitSurvey() {
   }
 
   if (d.observation_status === "Observed") {
+    if (!d.occupancy_rating) errors.occupancy = "Choose an occupancy rating.";
     if (d.score == null) errors.score = "Choose a distress score.";
     const has = (k) => s.photos.some((p) => p.kind === k);
     const missing = [];
@@ -852,6 +908,7 @@ function renderBug() {
       reported_at: new Date().toISOString(),
       reporter_name: state.observer?.name ?? "",
       reporter_role: state.observer?.role ?? "",
+      reporter_group: state.observer?.group ? groupLabel(state.observer.group) : "",
       description,
       steps: form.steps.value.trim(),
       page: back,

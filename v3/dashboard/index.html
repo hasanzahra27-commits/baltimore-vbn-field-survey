@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#1d3a5f">
+  <title>VBN Survey Dashboard</title>
+  <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/app.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand">VBN Survey · i-Team dashboard</span>
+    <div class="topbar-actions">
+      <button type="button" id="refresh" class="pill hidden">Refresh</button>
+      <button type="button" id="logout" class="pill hidden">Log out</button>
+    </div>
+  </header>
+
+  <main id="login-view" class="narrow">
+    <section class="card">
+      <h1>i-Team dashboard</h1>
+      <p class="muted">Live summary of the field survey, and where you assign properties to volunteer groups.</p>
+      <form id="login-form" novalidate>
+        <label class="field">Password
+          <input type="password" name="password" autocomplete="current-password" required>
+        </label>
+        <p class="error" id="login-error"></p>
+        <button class="btn primary block" type="submit">Open dashboard</button>
+      </form>
+    </section>
+  </main>
+
+  <main id="dash-view" class="wide hidden">
+    <div class="filters card">
+      <label class="field">Group
+        <select id="f-group"><option value="">All groups</option></select>
+      </label>
+      <label class="field">Surveyor type
+        <select id="f-role"><option value="">All surveyor types</option></select>
+      </label>
+      <p class="muted small" id="updated" aria-live="polite"></p>
+    </div>
+
+    <div class="tiles" id="tiles"></div>
+
+    <div class="charts">
+      <section class="card chart-card span-2">
+        <div class="chart-head">
+          <div>
+            <h2>Properties surveyed</h2>
+            <p class="muted small">Split by the surveyor's group or type</p>
+          </div>
+          <div class="seg compact" role="radiogroup" aria-label="Break down by">
+            <label><input type="radio" name="breakdown" value="group" checked><span>Group</span></label>
+            <label><input type="radio" name="breakdown" value="role"><span>Surveyor type</span></label>
+          </div>
+        </div>
+        <div id="c-breakdown"></div>
+      </section>
+      <section class="card chart-card">
+        <h2>Distress items checked</h2>
+        <p class="muted small">Number of Distress checklist items ticked, per property</p>
+        <div id="c-distress"></div>
+      </section>
+      <section class="card chart-card">
+        <h2>Occupancy signs (net)</h2>
+        <p class="muted small">Signs no one lives there minus signs someone does, per property. Higher = more signs of vacancy.</p>
+        <div id="c-occupancy"></div>
+      </section>
+      <section class="card chart-card">
+        <h2>Overall distress score</h2>
+        <p class="muted small" id="score-note">Surveys using the 0–4 scale</p>
+        <div id="c-score"></div>
+      </section>
+      <section class="card chart-card">
+        <h2>Occupancy rating</h2>
+        <p class="muted small">The surveyor's overall call</p>
+        <div id="c-rating"></div>
+      </section>
+    </div>
+
+    <section class="card" id="groups">
+      <h2>Assign properties to groups</h2>
+      <p class="muted small">Volunteers see only their group's properties. Changes reach their phones within about a minute, next time they have signal. Properties with no group are only visible to i-Team staff who choose “All groups”.</p>
+      <div class="assign-bar">
+        <input type="search" id="g-search" placeholder="Search address, block-lot or neighborhood" autocomplete="off">
+        <select id="g-filter" aria-label="Show"><option value="">All properties</option></select>
+      </div>
+      <div class="assign-bar">
+        <span class="muted small" id="g-count">0 selected</span>
+        <input id="g-name" list="g-names" placeholder="Group name, e.g. Group 1" autocomplete="off">
+        <datalist id="g-names"></datalist>
+        <button type="button" class="btn small primary" id="g-assign">Assign selected</button>
+        <button type="button" class="btn small" id="g-clear">Remove group</button>
+      </div>
+      <div class="assign-bar upload-bar">
+        <label class="btn small">Upload group file (CSV)
+          <input type="file" id="g-file" accept=".csv,text/csv" hidden>
+        </label>
+        <button type="button" class="btn small ghost" id="g-download">Download groups</button>
+        <span class="muted small">Columns: <code>block_lot</code> and <code>group</code>. In Excel or Sheets, save or download as CSV.</span>
+      </div>
+      <div id="g-preview" class="upload-preview hidden"></div>
+      <p class="error" id="g-error"></p>
+      <div class="table-wrap">
+        <table class="ptable">
+          <thead><tr>
+            <th><input type="checkbox" id="g-all" aria-label="Select all shown"></th>
+            <th>Address</th><th>Block-lot</th><th>Neighborhood</th><th>Group</th><th class="num">Surveys</th>
+          </tr></thead>
+          <tbody id="g-rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="tip" role="tooltip" hidden></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>

@@ -14,6 +14,7 @@ This takes about 10 minutes, with no coding. Do it from the Google account that 
 3. Delete the sample code, then paste in the whole of [`Code.gs`](Code.gs).
 4. Optional: set `SHARED_KEY` to any random word. You'll put the same word in the app in step 3.
    Set `BUG_REPORT_EMAIL` to whoever should get bug reports from the app's 🐞 button.
+   Set `DASHBOARD_PASSWORD` to the i-Team dashboard password. Only set it here in Apps Script: the repo is public.
 5. Limit the script's permissions:
    1. Click the ⚙️ **Project Settings** icon on the left.
    2. Tick **Show "appsscript.json" manifest file in editor**.

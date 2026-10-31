@@ -14,6 +14,11 @@ export const CONFIG = {
   // the export with a "property_" prefix.
   PROPERTIES_URL: "data/properties.csv",
 
+  // Property-list column that assigns each property to a group of volunteers.
+  // Volunteers pick their group once and then see only that group's
+  // properties. Leave the column out of the list to show everyone everything.
+  GROUP_COLUMN: "group",
+
   // Property-list columns that are exported but never shown to researchers,
   // so the model's prediction doesn't nudge what they record.
   HIDDEN_PROPERTY_FIELDS: ["model_score", "sample_group"],

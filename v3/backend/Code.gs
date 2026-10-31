@@ -15,8 +15,14 @@ const SHARED_KEY = '';
 // not in the app, so the address isn't published in the public repo.
 const BUG_REPORT_EMAIL = '';
 
+// Password for the i-Team dashboard (dashboard/ in the app). Set it here in
+// the Apps Script editor only, never in the public repo. Leave it empty to
+// turn the dashboard off.
+const DASHBOARD_PASSWORD = '';
+
 const SHEET_NAME = 'Surveys';
 const BUG_SHEET_NAME = 'Bug reports';
+const GROUP_SHEET_NAME = 'Groups';
 const PHOTO_FOLDER_NAME = 'VBN Field Survey Photos';
 
 function doPost(e) {
@@ -26,6 +32,12 @@ function doPost(e) {
     const body = JSON.parse(e.postData.contents);
     if (SHARED_KEY && body.key !== SHARED_KEY) return json_({ ok: false, error: 'Invalid key' });
     if (body.type === 'bug') return json_(saveBug_(body.report));
+    if (body.type === 'dashboard' || body.type === 'assign') {
+      if (!DASHBOARD_PASSWORD) return json_({ ok: false, error: 'The dashboard is turned off. Set DASHBOARD_PASSWORD in Code.gs.' });
+      if (body.password !== DASHBOARD_PASSWORD) return json_({ ok: false, error: 'Wrong password' });
+      if (body.type === 'assign') saveGroups_(body.assignments || []);
+      return json_({ ok: true, rows: body.type === 'dashboard' ? readSurveys_(body.columns || []) : undefined, groups: readGroups_() });
+    }
 
     const row = body.row;
     if (!row || !row.survey_id || !row.block_lot) return json_({ ok: false, error: 'Missing survey_id or block_lot' });
@@ -73,7 +85,57 @@ function doGet(e) {
       properties[bl] = cur;
     });
   }
-  return json_({ ok: true, properties: properties });
+  return json_({ ok: true, properties: properties, groups: readGroups_() });
+}
+
+// Dashboard data: only the columns the dashboard asks for, so names,
+// comments, locations and photo links never leave the Sheet.
+function readSurveys_(columns) {
+  const sheet = getSheet_();
+  if (sheet.getLastRow() < 2) return [];
+  const values = sheet.getDataRange().getDisplayValues();
+  const head = values[0];
+  const keep = columns.filter((c) => head.indexOf(c) !== -1);
+  return values.slice(1).map((r) => {
+    const o = {};
+    keep.forEach((c) => { o[c] = r[head.indexOf(c)]; });
+    return o;
+  });
+}
+
+// Group assignments made on the dashboard, one row per block-lot. They
+// override the "group" column of the app's property list.
+function groupSheet_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(GROUP_SHEET_NAME) || ss.insertSheet(GROUP_SHEET_NAME);
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['block_lot', 'group', 'assigned_at']);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+function readGroups_() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(GROUP_SHEET_NAME);
+  const groups = {};
+  if (!sheet || sheet.getLastRow() < 2) return groups;
+  sheet.getRange(2, 1, sheet.getLastRow() - 1, 2).getDisplayValues().forEach((r) => {
+    if (r[0]) groups[r[0]] = r[1];
+  });
+  return groups;
+}
+
+// An empty group puts the property back on the list's own "group" column.
+function saveGroups_(assignments) {
+  const sheet = groupSheet_();
+  const current = readGroups_();
+  const now = new Date().toISOString();
+  assignments.forEach((a) => {
+    if (a && a.block_lot) current[String(a.block_lot)] = String(a.group || '');
+  });
+  const rows = Object.keys(current).filter((bl) => current[bl]).map((bl) => [bl, current[bl], now]);
+  if (sheet.getLastRow() > 1) sheet.getRange(2, 1, sheet.getLastRow() - 1, 3).clearContent();
+  if (rows.length) sheet.getRange(2, 1, rows.length, 3).setNumberFormat('@').setValues(rows);
 }
 
 // Bug reports from app v3+. Each is logged on its own tab first, so nothing is
