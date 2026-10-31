@@ -4,6 +4,8 @@ This is a mobile web app for field researchers to record whether sampled propert
 
 > **Current version:** [v3](v3/), at https://hasanzahra27-commits.github.io/baltimore-vbn-field-survey/v3/
 >
+> **i-Team dashboard:** https://hasanzahra27-commits.github.io/baltimore-vbn-field-survey/v3/dashboard/ (password protected). It shows live survey progress and summary statistics, and is where the i-Team assigns properties to volunteer groups. See [how it works](v3/README.md#i-team-dashboard).
+>
 > **Handing the app off?** See [HANDOFF.md](HANDOFF.md). It's a one-page guide to moving the app and its data to the Baltimore i-Team, and optionally on to DHCD.
 
 **What researchers do:** enter their name, role and code-enforcement status once. Then, for each property:
@@ -28,7 +30,7 @@ The [`v2/`](v2/) folder holds v2, rebuilt by Emma from the October 9 feedback. I
 
 ## Version 3
 
-The [`v3/`](v3/) folder holds v3, published at `https://hasanzahra27-commits.github.io/baltimore-vbn-field-survey/v3/`. It adds a 🐞 bug-report button that emails the app's owner, red-asterisk required fields, an all-optional "couldn't observe" path, and splits the BXP window item into three. See [`v3/README.md`](v3/README.md).
+The [`v3/`](v3/) folder holds v3, published at `https://hasanzahra27-commits.github.io/baltimore-vbn-field-survey/v3/`. It adds a 🐞 bug-report button that emails the app's owner, red-asterisk required fields, an all-optional "couldn't observe" path, and splits the BXP window item into three. It also has volunteer groups, an occupancy rating, and a password-protected [i-Team dashboard](v3/README.md#i-team-dashboard). See [`v3/README.md`](v3/README.md).
 
 - v3 needs [`v3/backend/Code.gs`](v3/backend/Code.gs) and [`v3/backend/appsscript.json`](v3/backend/appsscript.json) deployed as a new version (it adds the email permission). Set `BUG_REPORT_EMAIL` in `Code.gs` first. The new script also works for v1 and v2.
 - Like v2, v3 keeps its own surveys and drafts on the phone and is added to the Home Screen separately ("VBN Survey v3").
