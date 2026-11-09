@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="VBN field survey training for Service Year Fellows. Student coursework draft, not an official City page.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Block by Block</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@500&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: a field notebook. One narrow reading column, a sticky top bar with module chips,
+   hi-vis yellow used like a highlighter on survey paper, brick red reserved for hard lines. */
+:root {
+  --paper: #eef1f5;
+  --card: #ffffff;
+  --ink: #14213a;
+  --muted: #566176;
+  --line: #d3d9e3;
+  --hivis: #f2d20f;
+  --hivis-ink: #14213a;
+  --brick: #b23a2b;
+  --brick-bg: #f9e4e0;
+  --ok: #1d7650;
+  --ok-bg: #dff2e8;
+  --judge: #9a5a00;
+  --judge-bg: #fbeed3;
+  --focus: #2f6fd6;
+  /* house illustration */
+  --h-brick: #a4503d;
+  --h-brick-dk: #7e3a2b;
+  --h-form: #a7abb3;
+  --h-form-dk: #8c919a;
+  --h-paint: #5f8a8b;
+  --h-trim: #f4f1ea;
+  --h-glass: #9fb7c9;
+  --h-glass-dirty: #8d9488;
+  --h-board: #c9a46a;
+  --h-board-dk: #a07f48;
+  --h-green: #4d7d3a;
+  --h-walk: #c9ccd1;
+  --h-sky: #dde6ee;
+  --h-bag: #2b2f36;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1626; --card: #172138; --ink: #e8ecf3; --muted: #9ba5b9; --line: #2a3552;
+    --hivis: #f2d20f; --hivis-ink: #14213a;
+    --brick: #f08070; --brick-bg: #3a1d1b; --ok: #62d3a2; --ok-bg: #12301f;
+    --judge: #f2b45a; --judge-bg: #352710; --focus: #8ab4ff;
+    --h-brick: #8f4636; --h-brick-dk: #6a3226; --h-form: #7d828b; --h-form-dk: #686d76;
+    --h-paint: #4b7071; --h-trim: #d9d5cc; --h-glass: #6d8597; --h-glass-dirty: #6b7067;
+    --h-board: #a8864f; --h-board-dk: #826639; --h-green: #4f7a3c; --h-walk: #59606b;
+    --h-sky: #1d2944; --h-bag: #090b0f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1626; --card: #172138; --ink: #e8ecf3; --muted: #9ba5b9; --line: #2a3552;
+  --hivis: #f2d20f; --hivis-ink: #14213a;
+  --brick: #f08070; --brick-bg: #3a1d1b; --ok: #62d3a2; --ok-bg: #12301f;
+  --judge: #f2b45a; --judge-bg: #352710; --focus: #8ab4ff;
+  --h-brick: #8f4636; --h-brick-dk: #6a3226; --h-form: #7d828b; --h-form-dk: #686d76;
+  --h-paint: #4b7071; --h-trim: #d9d5cc; --h-glass: #6d8597; --h-glass-dirty: #6b7067;
+  --h-board: #a8864f; --h-board-dk: #826639; --h-green: #4f7a3c; --h-walk: #59606b;
+  --h-sky: #1d2944; --h-bag: #090b0f;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-padding-top: 120px; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: #14213a;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.02; margin: 0; letter-spacing: 0.005em; }
+h1 { font-size: clamp(2.6rem, 9vw, 4.4rem); font-weight: 900; text-transform: uppercase; }
+h2 { font-size: clamp(1.9rem, 6vw, 2.6rem); font-weight: 800; text-transform: uppercase; }
+h3 { font-size: 1.45rem; font-weight: 800; text-transform: uppercase; }
+p { margin: 0; }
+.mono { font-family: var(--mono); font-size: 0.8em; }
+.wrap {
+  max-width: 780px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Top bar */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9;
+  background: var(--ink); color: var(--paper);
+}
+:root .top { color: #eef1f5; background: #14213a; }
+.top .wrap { display: flex; flex-direction: column; gap: 6px; padding-block: 10px 0; }
+.brand { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand a { text-decoration: none; font-family: var(--display); font-weight: 900; font-size: 1.35rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.brand a span { background: var(--hivis); color: var(--hivis-ink); padding: 0 6px; margin-right: 4px; }
+.brand .count { font-family: var(--mono); font-size: 0.78rem; opacity: 0.8; white-space: nowrap; }
+.chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip {
+  flex: none; text-decoration: none; font-size: 0.82rem; font-weight: 600;
+  padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(238,241,245,0.28);
+  white-space: nowrap; display: inline-flex; gap: 6px; align-items: center;
+}
+.chip[aria-current="page"] { background: var(--hivis); color: var(--hivis-ink); border-color: var(--hivis); }
+.chip .tick { font-size: 0.75rem; }
+
+.draft {
+  background: var(--judge-bg); color: var(--judge); font-size: 0.85rem; border-bottom: 1px solid var(--line);
+}
+.draft .wrap { padding-block: 8px; }
+
+main { padding-block: 28px 64px; }
+section.view { display: flex; flex-direction: column; gap: 28px; }
+.kicker { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 1.15rem; color: var(--muted); max-width: 62ch; }
+.prose { display: flex; flex-direction: column; gap: 14px; max-width: 65ch; }
+.hl { background: linear-gradient(transparent 55%, var(--hivis) 55%, var(--hivis) 92%, transparent 92%); color: inherit; padding: 0 2px; }
+.block { display: flex; flex-direction: column; gap: 14px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.muted { color: var(--muted); }
+.small { font-size: 0.9rem; }
+
+/* Buttons */
+button { font: inherit; color: inherit; cursor: pointer; }
+.btn {
+  border: 2px solid var(--ink); background: transparent; padding: 10px 16px; border-radius: 8px;
+  font-weight: 700; text-align: left; line-height: 1.35;
+}
+.btn:hover { background: color-mix(in srgb, var(--ink) 7%, transparent); }
+.btn.primary { background: var(--hivis); color: var(--hivis-ink); border-color: var(--hivis); }
+.btn.primary:hover { filter: brightness(0.95); }
+.btn:disabled { opacity: 0.45; cursor: default; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.options { display: flex; flex-direction: column; gap: 8px; }
+.opt {
+  border: 1.5px solid var(--line); background: var(--card); border-radius: 8px; padding: 12px 14px;
+  text-align: left; font-weight: 400; line-height: 1.45; display: flex; gap: 10px;
+}
+.opt:hover:not(:disabled) { border-color: var(--ink); }
+.opt .letter { font-family: var(--mono); font-weight: 500; color: var(--muted); flex: none; }
+.opt.right { border-color: var(--ok); background: var(--ok-bg); }
+.opt.wrong { border-color: var(--brick); background: var(--brick-bg); }
+.opt:disabled { cursor: default; }
+.feedback { border-radius: 8px; padding: 12px 14px; font-size: 0.97rem; }
+.feedback.good { background: var(--ok-bg); color: var(--ink); border-left: 4px solid var(--ok); }
+.feedback.bad { background: var(--brick-bg); color: var(--ink); border-left: 4px solid var(--brick); }
+.feedback.meh { background: var(--judge-bg); color: var(--ink); border-left: 4px solid var(--judge); }
+.feedback strong { display: block; margin-bottom: 2px; }
+
+/* Start page */
+.hero { display: flex; flex-direction: column; gap: 18px; }
+.hero svg { width: 100%; height: auto; display: block; max-width: 100%; }
+.modlist { display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0; padding: 0; }
+.modlist a {
+  display: grid; grid-template-columns: 52px 1fr auto; gap: 14px; align-items: center;
+  text-decoration: none; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px;
+}
+.modlist a:hover { border-color: var(--ink); }
+.modlist .num { font-family: var(--display); font-weight: 900; font-size: 2.2rem; line-height: 1; text-align: center; }
+.modlist .t { font-weight: 700; display: block; }
+.modlist .d { color: var(--muted); font-size: 0.92rem; display: block; }
+.modlist .s { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+.modlist .s.done { color: var(--ok); }
+.extras { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.extras a { text-decoration: none; border: 2px dashed var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
+.extras a:hover { border-color: var(--ink); }
+.extras b { font-family: var(--display); text-transform: uppercase; font-size: 1.25rem; }
+
+/* VBN stamp */
+.defn { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; }
+.stamp {
+  font-family: var(--display); font-weight: 900; font-size: 2.4rem; color: var(--brick);
+  border: 4px solid var(--brick); border-radius: 6px; padding: 2px 12px; transform: rotate(-6deg);
+  letter-spacing: 0.06em; line-height: 1.1;
+}
+@media (max-width: 460px) { .defn { grid-template-columns: 1fr; } .stamp { justify-self: start; } }
+
+/* Guess sliders */
+.guess { display: flex; flex-direction: column; gap: 10px; }
+.guess label { font-weight: 600; }
+.guess input[type=range] { width: 100%; accent-color: var(--ink); }
+.guess .val { font-family: var(--display); font-weight: 800; font-size: 1.8rem; }
+.guess .reveal { min-height: 1.6em; }
+
+/* Blind spot strip */
+.strip { overflow-x: auto; }
+.strip svg { display: block; min-width: 560px; width: 100%; height: auto; }
+.toggle { display: inline-flex; border: 2px solid var(--ink); border-radius: 999px; overflow: hidden; }
+.toggle button { border: 0; background: transparent; padding: 7px 14px; font-weight: 700; font-size: 0.92rem; }
+.toggle button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; list-style: none; margin: 0; padding: 0; }
+.timeline li { padding: 10px 8px; font-size: 0.85rem; font-weight: 600; border-top: 6px solid var(--line); }
+.timeline li:nth-child(1) { border-color: var(--ok); }
+.timeline li:nth-child(2) { border-color: var(--hivis); }
+.timeline li:nth-child(3) { border-color: var(--judge); }
+.timeline li:nth-child(4), .timeline li:nth-child(5) { border-color: var(--brick); }
+.timeline li span { display: block; font-weight: 400; color: var(--muted); font-size: 0.8rem; }
+@media (max-width: 560px) { .timeline { grid-template-columns: 1fr; } .timeline li { border-top: 0; border-left: 6px solid var(--line); } }
+
+/* checklist groups */
+.rule { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+.rule div { border: 1.5px solid var(--line); border-radius: 8px; padding: 12px; background: var(--card); display: flex; flex-direction: column; gap: 4px; }
+.rule .g { font-family: var(--display); font-weight: 900; font-size: 2rem; line-height: 1; }
+.rule .n { font-size: 0.88rem; color: var(--muted); }
+
+/* Spot the signs */
+.house svg { width: 100%; height: auto; display: block; max-width: 100%; border-radius: 8px; }
+.hs { fill: transparent; cursor: pointer; }
+.hs:hover { fill: color-mix(in srgb, var(--hivis) 25%, transparent); }
+.hs:focus-visible { outline: none; fill: color-mix(in srgb, var(--focus) 25%, transparent); }
+.hs.found { fill: color-mix(in srgb, var(--hivis) 30%, transparent); stroke: var(--hivis); stroke-width: 3; }
+.hs.decoy.found { fill: color-mix(in srgb, var(--h-paint) 15%, transparent); stroke: var(--muted); stroke-dasharray: 6 4; }
+.pin circle { fill: var(--hivis); stroke: #14213a; stroke-width: 2; }
+.pin text { font: 800 15px var(--display); fill: #14213a; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.pin { pointer-events: none; }
+.found-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.found-list li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; font-size: 0.95rem; }
+.found-list .b { width: 24px; height: 24px; border-radius: 50%; background: var(--hivis); color: #14213a; font: 800 14px/24px var(--display); text-align: center; }
+.found-list .b.x { background: transparent; border: 2px dashed var(--muted); color: var(--muted); line-height: 20px; }
+.code { font-family: var(--mono); font-size: 0.75rem; background: color-mix(in srgb, var(--ink) 8%, transparent); padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+.meter { height: 10px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.meter i { display: block; height: 100%; background: var(--hivis); width: 0; transition: width .3s; }
+
+/* Scale */
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.scale div { border-radius: 8px; padding: 10px 8px; background: var(--card); border: 1.5px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+.scale b { font-family: var(--display); font-size: 1.9rem; line-height: 1; }
+.scale span { font-size: 0.8rem; font-weight: 700; }
+.scale small { font-size: 0.75rem; color: var(--muted); line-height: 1.3; }
+@media (max-width: 600px) { .scale { grid-template-columns: 1fr; } .scale div { flex-direction: row; gap: 10px; align-items: baseline; flex-wrap: wrap; } }
+
+/* Ordered steps */
+.steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: baseline; }
+.steps li::before { content: counter(s); font-family: var(--display); font-weight: 900; font-size: 1.5rem; line-height: 1; text-align: center; }
+
+/* Scenario */
+.scene-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.scene-text { font-size: 1.12rem; }
+.dots { display: flex; gap: 5px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); display: block; }
+.dots i.on { background: var(--ink); }
+.dots i.ok { background: var(--ok); }
+.dots i.no { background: var(--brick); }
+
+/* Hard lines */
+.lines { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0; border-top: 3px solid var(--brick); }
+.lines li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.lines .n { font-family: var(--display); font-weight: 900; font-size: 2rem; color: var(--brick); line-height: 1; }
+.lines b { display: block; font-size: 1.05rem; }
+.lines span { color: var(--muted); font-size: 0.95rem; }
+.prop { font-family: var(--mono); font-size: 0.72rem; color: var(--judge); background: var(--judge-bg); padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+.sorter { display: flex; flex-direction: column; gap: 14px; }
+.sort-card { font-size: 1.15rem; font-weight: 600; padding: 22px 18px; border: 2px solid var(--ink); border-radius: 10px; background: var(--card); min-height: 110px; display: flex; align-items: center; }
+.bins { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.bin { border: 2px solid; border-radius: 8px; padding: 12px 8px; font-weight: 800; text-align: center; background: var(--card); font-family: var(--display); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.02em; }
+.bin.fine { border-color: var(--ok); color: var(--ok); }
+.bin.judge { border-color: var(--judge); color: var(--judge); }
+.bin.line { border-color: var(--brick); color: var(--brick); }
+.bin:hover:not(:disabled) { background: color-mix(in srgb, currentColor 10%, var(--card)); }
+.bin:disabled { opacity: .5; cursor: default; }
+
+/* Notes game */
+.vs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media (max-width: 520px) { .vs { grid-template-columns: 1fr; } }
+.vs .opt { font-family: var(--mono); font-size: 0.88rem; }
+
+/* Test + badge */
+.score-big { font-family: var(--display); font-weight: 900; font-size: 3.4rem; line-height: 1; }
+.badge {
+  border: 3px solid var(--ink); border-radius: 14px; padding: 22px; background: var(--card);
+  display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center;
+}
+.badge .seal {
+  width: 96px; height: 96px; border-radius: 50%; background: var(--hivis); color: #14213a;
+  display: grid; place-items: center; text-align: center; font-family: var(--display); font-weight: 900;
+  font-size: 1.05rem; line-height: 1; text-transform: uppercase; border: 3px dashed #14213a;
+}
+.badge h3 { font-size: 1.9rem; }
+@media (max-width: 460px) { .badge { grid-template-columns: 1fr; } }
+input[type=text] { font: inherit; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--card); color: var(--ink); width: 100%; max-width: 360px; }
+
+/* Pocket card */
+.pocket { border: 3px solid var(--ink); border-radius: 16px; background: var(--card); padding: 20px; display: flex; flex-direction: column; gap: 16px; max-width: 460px; }
+.pocket h2 { font-size: 2rem; }
+.pocket ol, .pocket ul { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 4px; font-size: 0.95rem; }
+.pocket .lbl { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.pocket .never { border-top: 3px solid var(--brick); padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.pocket .never li::marker { color: var(--brick); font-weight: 800; }
+.say { background: color-mix(in srgb, var(--hivis) 22%, var(--card)); border-radius: 8px; padding: 12px 14px; font-style: italic; }
+
+/* Facilitator guide */
+.agenda { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+.agenda th, .agenda td { text-align: left; vertical-align: top; padding: 10px 10px 10px 0; border-bottom: 1px solid var(--line); }
+.agenda th { font-family: var(--mono); font-weight: 500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.agenda td:first-child { font-family: var(--mono); font-size: 0.8rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.agenda td b { display: block; }
+.tablewrap { overflow-x: auto; }
+.rp { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+.rp div { border: 2px dashed var(--line); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 6px; font-size: 0.93rem; background: var(--card); }
+.rp b { font-family: var(--display); text-transform: uppercase; font-size: 1.2rem; }
+.check { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.check li { padding-left: 26px; position: relative; }
+.check li::before { content: ""; position: absolute; left: 0; top: 4px; width: 16px; height: 16px; border: 2px solid var(--ink); border-radius: 3px; }
+
+.next { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 20px; }
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 20px 32px; font-size: 0.85rem; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+@keyframes pop { from { transform: scale(.6); } to { transform: scale(1); } }
+.pin { animation: pop .2s ease-out; transform-box: fill-box; transform-origin: center; }
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <a href="#start"><span>Block</span>by Block</a>
+      <div class="count" id="count">0 / 5 modules</div>
+    </div>
+    <nav class="chips" id="chips" aria-label="Modules"></nav>
+  </div>
+</header>
+<div class="draft"><div class="wrap">Draft for i-Team review. Rules marked <span class="prop">proposed</span> come from the draft resident verification page and still need sign-off.</div></div>
+
+<main class="wrap" id="main"></main>
+
+<footer><div class="wrap">
+  <p>Made for Service Year Fellows and other volunteers on the Baltimore i-Team's vacant property field survey. Checklist wording follows survey app v3.</p>
+  <p>Student coursework (HKS MLD-371) with the Mayor's Office i-Team. Not an official City page. Drafted with AI assistance; review by i-Team staff pending.</p>
+</div></footer>
+
+<script>
+(() => {
+const MODS = [
+  { id: "why",   n: 1, t: "Why your eyes matter", d: "What a VBN is, and the blind spot your survey fixes", min: 8 },
+  { id: "look",  n: 2, t: "How to look", d: "What to look for, spot-the-signs, writing notes that hold up", min: 12 },
+  { id: "norms", n: 3, t: "A day on the block", d: "Eight field situations. You choose, we debrief.", min: 10 },
+  { id: "lines", n: 4, t: "Hard lines", d: "The eight things you never do, and a sorting game", min: 8 },
+  { id: "test",  n: 5, t: "Field test", d: "Eight questions. Get 7 right and you're field ready.", min: 6 },
+];
+const VIEWS = ["start", ...MODS.map(m => m.id), "pocket", "guide"];
+
+/* ---------- storage (per-viewer convenience only) ---------- */
+const KEY = "bbb-progress-v1";
+let state = { done: {}, name: "", passed: false, passedOn: "" };
+try { const s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s) state = Object.assign(state, s); } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+const markDone = (id) => { state.done[id] = true; save(); renderChrome(); };
+
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const main = $("#main");
+
+function renderChrome(view) {
+  view = view || current();
+  const n = MODS.filter(m => state.done[m.id]).length;
+  $("#count").textContent = `${n} / 5 modules`;
+  const items = [["start", "Start"], ...MODS.map(m => [m.id, `${m.n}. ${m.t}`]), ["pocket", "Pocket card"], ["guide", "Facilitator guide"]];
+  $("#chips").innerHTML = items.map(([id, label]) =>
+    `<a class="chip" href="#${id}" ${id === view ? 'aria-current="page"' : ""}>${esc(label)}${state.done[id] ? '<span class="tick" aria-label="done">✓</span>' : ""}</a>`).join("");
+  const cur = $("#chips [aria-current]"); if (cur) cur.scrollIntoView({ block: "nearest", inline: "center" });
+}
+function current() { const h = location.hash.slice(1); return VIEWS.includes(h) ? h : "start"; }
+
+function nextNav(id) {
+  const i = MODS.findIndex(m => m.id === id);
+  const prev = i > 0 ? MODS[i - 1] : null, nxt = MODS[i + 1];
+  return `<div class="next">
+    ${prev ? `<a class="btn" href="#${prev.id}">← ${esc(prev.t)}</a>` : `<a class="btn" href="#start">← Start</a>`}
+    ${nxt ? `<a class="btn primary" href="#${nxt.id}" data-finish="${id}">Done. Next: ${esc(nxt.t)} →</a>` : ""}
+  </div>`;
+}
+
+/* ---------- shared: multiple-choice question widget ---------- */
+function mcq(el, q, onAnswer) {
+  const letters = "ABCD";
+  el.innerHTML = `<div class="options">${q.opts.map((o, i) =>
+    `<button class="opt" data-i="${i}"><span class="letter">${letters[i]}</span><span>${esc(o)}</span></button>`).join("")}</div>
+    <div class="fb" aria-live="polite"></div>`;
+  el.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+    const i = +b.dataset.i, right = i === q.a;
+    el.querySelectorAll(".opt").forEach((x, j) => { x.disabled = true; if (j === q.a) x.classList.add("right"); });
+    if (!right) b.classList.add("wrong");
+    const why = (q.why && q.why[i]) || q.explain || "";
+    $(".fb", el).innerHTML = `<div class="feedback ${right ? "good" : "bad"}"><strong>${right ? "Yes." : "Not quite."}</strong>${why}</div>`;
+    onAnswer && onAnswer(right, i);
+  }));
+}
+
+/* ---------- house illustrations ---------- */
+function rowStrip(mode) {
+  // 12 houses; a few have VBNs on file, a few are vacant without one, a couple are struggling
+  const kinds = ["ok","vbn","ok","hidden","ok","ok","strug","vbn","ok","hidden","ok","vbn"];
+  const w = 70, gap = 0, H = 170;
+  let s = `<svg viewBox="0 0 ${12 * w} ${H + 30}" role="img" aria-label="${mode === "model" ? "What the model sees: three houses with a VBN on file" : "What is really on the block: three houses with VBNs, two vacant houses with no notice, one struggling house"}">`;
+  s += `<rect x="0" y="${H}" width="${12 * w}" height="30" fill="var(--h-walk)"/>`;
+  kinds.forEach((k, i) => {
+    const x = i * (w + gap), top = 30 + (i % 3) * 4;
+    const isV = k === "vbn" || k === "hidden";
+    const showHidden = mode === "real";
+    const body = (k === "hidden" && showHidden) || k === "vbn" ? "var(--h-brick-dk)" : (i % 2 ? "var(--h-brick)" : "var(--h-paint)");
+    s += `<rect x="${x}" y="${top}" width="${w}" height="${H - top}" fill="${body}" stroke="var(--paper)" stroke-width="2"/>`;
+    s += `<rect x="${x}" y="${top - 6}" width="${w}" height="8" fill="var(--h-trim)"/>`;
+    for (let r = 0; r < 2; r++) for (let c = 0; c < 2; c++) {
+      const wx = x + 12 + c * 26, wy = top + 18 + r * 50;
+      let fill = "var(--h-glass)";
+      if (k === "vbn" || (k === "hidden" && showHidden)) fill = "var(--h-board)";
+      if (k === "strug" && showHidden && r === 0 && c === 1) fill = "var(--h-glass-dirty)";
+      s += `<rect x="${wx}" y="${wy}" width="18" height="30" fill="${fill}"/>`;
+    }
+    s += `<rect x="${x + 26}" y="${H - 34}" width="18" height="34" fill="var(--h-trim)" opacity=".85"/>`;
+    if (k === "vbn") {
+      s += `<g transform="rotate(-8 ${x + 35} ${top + 60})"><rect x="${x + 8}" y="${top + 48}" width="54" height="22" fill="var(--card)" stroke="var(--brick)" stroke-width="3" rx="3"/><text x="${x + 35}" y="${top + 64}" text-anchor="middle" font-family="Big Shoulders Display, sans-serif" font-weight="900" font-size="16" fill="var(--brick)">VBN</text></g>`;
+    }
+    if (k === "hidden" && showHidden) {
+      s += `<rect x="${x + 3}" y="${top - 3}" width="${w - 6}" height="${H - top}" fill="none" stroke="var(--hivis)" stroke-width="4" stroke-dasharray="8 5"/>`;
+      s += `<text x="${x + 35}" y="${H + 20}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink)">no notice</text>`;
+    }
+    if (k === "strug" && showHidden) {
+      s += `<text x="${x + 35}" y="${H + 20}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink)">slipping</text>`;
+    }
+  });
+  return s + `</svg>`;
+}
+
+const HOUSE_SPOTS = [
+  { id: "board1", x: 200, y: 96, w: 58, h: 84, sign: true, name: "Boarded window", sec: "Distress", note: "Count them. There's another one on this floor." },
+  { id: "board2", x: 380, y: 96, w: 58, h: 84, sign: true, name: "Second boarded window", sec: "Distress", note: "In the app: “More than one boarded window or door.” Say which ones in the details box." },
+  { id: "broken", x: 296, y: 210, w: 140, h: 92, sign: true, name: "Broken window", sec: "Distress", note: "In the app: “One or more broken windows or doors.”" },
+  { id: "gutter", x: 176, y: 60, w: 110, h: 46, sign: true, name: "Gutter falling off", sec: "Distress", note: "Goes under overall physical condition, along with fire damage and broken steps." },
+  { id: "lockbox", x: 240, y: 248, w: 24, h: 26, sign: true, name: "Lock box on the door", sec: "Signs no one lives there", note: "Often means a bank, agent or investor controls access." },
+  { id: "mail", x: 200, y: 302, w: 70, h: 26, sign: true, name: "Mail piling up", sec: "Signs no one lives there", note: "Note roughly how much and where." },
+  { id: "weeds", x: 284, y: 314, w: 112, h: 34, sign: true, name: "Weeds and overgrowth", sec: "Distress", note: "Even rowhouses without a yard show this at the base and steps." },
+  { id: "trash", x: 400, y: 304, w: 56, h: 44, sign: true, name: "Trash bags piled outside", sec: "Distress", note: "Say what and where: porch, steps, yard." },
+  { id: "formstone", x: 6, y: 60, w: 166, h: 250, sign: false, name: "Formstone front (house next door)", note: "Not a sign. Formstone is a classic Baltimore facade finish from the 1950s. Style isn't distress." },
+  { id: "screen", x: 490, y: 96, w: 70, h: 84, sign: false, name: "Painted window screen (house next door)", note: "Not a sign. Painted screens are a Baltimore folk art tradition, and they show someone cares about the house." },
+];
+
+function houseSVG() {
+  let s = `<svg viewBox="0 0 640 380" role="group" aria-label="A Baltimore rowhouse with its two neighbors. Tap or press Enter on parts of the picture to inspect them.">
+  <defs>
+    <pattern id="fs" width="40" height="28" patternUnits="userSpaceOnUse">
+      <rect width="40" height="28" fill="var(--h-form)"/>
+      <path d="M0 9 L17 8 L19 0 M17 8 L22 18 L40 17 M22 18 L12 28 M0 22 L12 28" stroke="var(--h-form-dk)" stroke-width="2" fill="none"/>
+    </pattern>
+    <pattern id="br" width="22" height="12" patternUnits="userSpaceOnUse">
+      <rect width="22" height="12" fill="var(--h-brick)"/>
+      <path d="M0 11.5 H22 M11 0 V5.5 M0 6 H22 M0 6 V11.5" stroke="var(--h-brick-dk)" stroke-width="1" fill="none"/>
+    </pattern>
+  </defs>
+  <rect width="640" height="380" fill="var(--h-sky)"/>
+  <!-- left neighbor: formstone -->
+  <rect x="0" y="66" width="178" height="262" fill="url(#fs)"/>
+  <rect x="0" y="54" width="178" height="16" fill="var(--h-trim)"/>
+  <rect x="24" y="100" width="48" height="74" fill="var(--h-glass)" stroke="var(--h-trim)" stroke-width="5"/>
+  <rect x="104" y="100" width="48" height="74" fill="var(--h-glass)" stroke="var(--h-trim)" stroke-width="5"/>
+  <rect x="24" y="214" width="56" height="74" fill="var(--h-glass)" stroke="var(--h-trim)" stroke-width="5"/>
+  <rect x="110" y="208" width="44" height="104" fill="var(--h-paint)" stroke="var(--h-trim)" stroke-width="4"/>
+  <rect x="100" y="312" width="64" height="8" fill="var(--h-trim)"/><rect x="94" y="320" width="76" height="8" fill="var(--h-trim)"/>
+  <!-- target house -->
+  <rect x="180" y="72" width="280" height="256" fill="url(#br)"/>
+  <rect x="176" y="56" width="288" height="18" fill="var(--h-trim)"/>
+  <rect x="176" y="72" width="288" height="5" fill="var(--h-brick-dk)"/>
+  <!-- falling gutter -->
+  <path d="M182 78 L250 104" stroke="var(--h-form-dk)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M262 76 L462 76" stroke="var(--h-form-dk)" stroke-width="6"/>
+  <!-- 2nd floor windows -->
+  ${board(204, 100)}
+  <rect x="294" y="100" width="50" height="76" fill="var(--h-glass-dirty)" stroke="var(--h-trim)" stroke-width="5"/>
+  <path d="M300 112 l12 -4 M318 140 l14 -6" stroke="var(--h-trim)" stroke-width="2" opacity=".5"/>
+  ${board(384, 100)}
+  <!-- door + lockbox -->
+  <rect x="204" y="206" width="58" height="108" fill="var(--h-brick-dk)" stroke="var(--h-trim)" stroke-width="5"/>
+  <rect x="212" y="214" width="42" height="34" fill="var(--h-glass-dirty)"/>
+  <rect x="245" y="252" width="14" height="18" rx="2" fill="var(--h-bag)"/><rect x="248" y="248" width="8" height="5" rx="2" fill="none" stroke="var(--h-bag)" stroke-width="2"/>
+  <!-- broken window -->
+  <rect x="300" y="214" width="132" height="84" fill="var(--h-glass)" stroke="var(--h-trim)" stroke-width="5"/>
+  <line x1="366" y1="214" x2="366" y2="298" stroke="var(--h-trim)" stroke-width="4"/>
+  <path d="M318 226 L334 252 L322 270 M334 252 L352 246 M334 252 L340 290" stroke="var(--h-bag)" stroke-width="2.4" fill="none"/>
+  <path d="M326 240 L344 238 L340 262 Z" fill="var(--h-bag)"/>
+  <!-- marble steps -->
+  <rect x="196" y="314" width="74" height="7" fill="var(--h-trim)"/><rect x="190" y="321" width="86" height="7" fill="var(--h-trim)"/>
+  <!-- mail -->
+  <g fill="var(--h-trim)" stroke="var(--h-form-dk)" stroke-width="1">
+    <rect x="210" y="306" width="18" height="10" transform="rotate(-12 219 311)"/>
+    <rect x="226" y="308" width="16" height="9" transform="rotate(9 234 312)"/>
+    <rect x="240" y="304" width="18" height="11" transform="rotate(-4 249 309)"/>
+    <rect x="218" y="300" width="15" height="9" transform="rotate(20 225 304)"/>
+  </g>
+  <!-- weeds -->
+  <path d="M288 330 l6 -22 l4 22 l7 -28 l5 28 l6 -18 l5 18 l8 -26 l4 26 l6 -16 l6 16 l7 -24 l5 24 l6 -20 l6 20 l8 -27 l3 27 l6 -15 l6 15 l6 -21 l4 21 Z" fill="var(--h-green)"/>
+  <!-- trash bags -->
+  <ellipse cx="416" cy="320" rx="16" ry="14" fill="var(--h-bag)"/><ellipse cx="440" cy="318" rx="14" ry="17" fill="var(--h-bag)"/>
+  <path d="M412 307 l4 -6 l4 6 M436 302 l4 -6 l4 6" stroke="var(--h-bag)" stroke-width="3" fill="none"/>
+  <!-- right neighbor: painted, with painted screen -->
+  <rect x="462" y="66" width="178" height="262" fill="var(--h-paint)"/>
+  <rect x="462" y="54" width="178" height="16" fill="var(--h-trim)"/>
+  <rect x="494" y="100" width="62" height="76" fill="var(--h-sky)" stroke="var(--h-trim)" stroke-width="5"/>
+  <path d="M497 160 Q512 140 525 150 T553 145 L553 173 L497 173 Z" fill="var(--h-green)"/>
+  <rect x="512" y="110" width="22" height="22" fill="none"/><circle cx="540" cy="116" r="7" fill="var(--hivis)"/>
+  <path d="M497 160 L505 140 L515 160 Z" fill="var(--h-trim)" opacity=".7"/>
+  <rect x="580" y="100" width="44" height="76" fill="var(--h-glass)" stroke="var(--h-trim)" stroke-width="5"/>
+  <rect x="482" y="214" width="60" height="70" fill="var(--h-glass)" stroke="var(--h-trim)" stroke-width="5"/>
+  <rect x="478" y="284" width="68" height="12" fill="var(--h-board-dk)"/>
+  <circle cx="490" cy="280" r="7" fill="var(--hivis)"/><circle cx="506" cy="278" r="6" fill="var(--brick)"/><circle cx="522" cy="280" r="7" fill="var(--hivis)"/>
+  <rect x="572" y="208" width="44" height="104" fill="var(--h-brick-dk)" stroke="var(--h-trim)" stroke-width="4"/>
+  <rect x="564" y="312" width="60" height="8" fill="var(--h-trim)"/><rect x="558" y="320" width="72" height="8" fill="var(--h-trim)"/>
+  <!-- sidewalk -->
+  <rect x="0" y="328" width="640" height="52" fill="var(--h-walk)"/>
+  <path d="M120 328 v52 M300 328 v52 M480 328 v52" stroke="var(--h-form-dk)" stroke-width="1.5" opacity=".5"/>
+  `;
+  HOUSE_SPOTS.forEach(h => {
+    s += `<rect class="hs${h.sign ? "" : " decoy"}" data-id="${h.id}" x="${h.x}" y="${h.y}" width="${h.w}" height="${h.h}" rx="6" tabindex="0" role="button" aria-label="Inspect: ${esc(h.sign ? "part of the house" : "part of the house next door")} at ${h.id === "formstone" ? "left" : h.id === "screen" ? "right" : "center"}"/>`;
+  });
+  return s + `<g id="pins"></g></svg>`;
+  function board(x, y) {
+    return `<rect x="${x}" y="${y}" width="50" height="76" fill="var(--h-board)" stroke="var(--h-trim)" stroke-width="5"/>
+      <path d="M${x + 3} ${y + 20} H${x + 47} M${x + 3} ${y + 40} H${x + 47} M${x + 3} ${y + 60} H${x + 47}" stroke="var(--h-board-dk)" stroke-width="2"/>
+      <circle cx="${x + 8}" cy="${y + 10}" r="2" fill="var(--h-board-dk)"/><circle cx="${x + 42}" cy="${y + 10}" r="2" fill="var(--h-board-dk)"/>
+      <circle cx="${x + 8}" cy="${y + 68}" r="2" fill="var(--h-board-dk)"/><circle cx="${x + 42}" cy="${y + 68}" r="2" fill="var(--h-board-dk)"/>`;
+  }
+}
+
+/* ================= VIEWS ================= */
+
+function vStart() {
+  const doneN = MODS.filter(m => state.done[m.id]).length;
+  const firstOpen = MODS.find(m => !state.done[m.id]) || MODS[4];
+  main.innerHTML = `<section class="view">
+    <div class="hero">
+      <p class="kicker">Vacant property field survey · Training for Service Year Fellows</p>
+      <h1>The City's map has blind spots. <span class="hl">You're the fix.</span></h1>
+      <p class="lede">Baltimore uses a computer model to spot homes that are sliding toward vacancy, early enough to help. It can only learn from what it's been shown. This training gets you ready to go out and show it what's really on the block, and to do it the right way.</p>
+      <div class="row">
+        <a class="btn primary" href="#${firstOpen.id}">${doneN ? "Keep going" : "Start module 1"} →</a>
+        <span class="muted small">About 45 minutes on your phone. Your progress saves on this device.</span>
+      </div>
+      ${rowStrip("real")}
+    </div>
+    <div class="block">
+      <h2>Five modules</h2>
+      <ol class="modlist">
+        ${MODS.map(m => `<li><a href="#${m.id}"><span class="num">${m.n}</span><span><span class="t">${esc(m.t)}</span><span class="d">${esc(m.d)}</span></span><span class="s ${state.done[m.id] ? "done" : ""}">${state.done[m.id] ? "✓ done" : m.min + " min"}</span></a></li>`).join("")}
+      </ol>
+    </div>
+    <div class="extras">
+      <a href="#pocket"><b>Pocket card</b><span class="muted small">One screen to screenshot and check in the field.</span></a>
+      <a href="#guide"><b>Facilitator guide</b><span class="muted small">A 2-hour in-person session plan for program staff.</span></a>
+    </div>
+  </section>`;
+}
+
+function vWhy() {
+  main.innerHTML = `<section class="view">
+    <div class="block">
+      <p class="kicker">Module 1 of 5</p>
+      <h2>Why your eyes matter</h2>
+    </div>
+
+    <div class="card defn">
+      <div class="stamp" aria-hidden="true">VBN</div>
+      <div class="prose">
+        <p><strong>A Vacant Building Notice (VBN)</strong> is an official notice from the City's housing department (DHCD) that a building is vacant and not fit to live in.</p>
+        <p class="muted">The number of VBNs is how Baltimore keeps score on vacant housing. When it goes down, it looks like the city is winning.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Guess the numbers</h3>
+      <p class="muted">Drag, then lock in your guess.</p>
+      <div id="guesses" class="block"></div>
+    </div>
+
+    <div class="block">
+      <h3>The blind spot</h3>
+      <div class="prose">
+        <p>The i-Team built a model that looks at public records, like water use and property values, and estimates which homes might be heading toward vacancy.</p>
+        <p>But a model learns from examples, and its only examples of "vacant" are houses that <em>already have a VBN</em>. If some vacant houses never got a notice, the model never learns what they look like, and it keeps missing the same kind of house.</p>
+      </div>
+      <div class="row"><div class="toggle" role="group" aria-label="Switch view">
+        <button id="tModel" aria-pressed="true">What the model sees</button>
+        <button id="tReal" aria-pressed="false">What's really there</button>
+      </div></div>
+      <div class="strip card" style="padding:12px" id="strip">${rowStrip("model")}</div>
+      <p id="stripNote" class="muted">The model knows about the three houses with a notice. Everything else looks fine to it.</p>
+    </div>
+
+    <div class="block">
+      <h3>Why early matters</h3>
+      <ol class="timeline">
+        <li>Lived in <span>Owner keeping up</span></li>
+        <li>Slipping <span>Repairs put off, bills behind</span></li>
+        <li>Empty <span>Nobody living there</span></li>
+        <li>VBN <span>Officially vacant, unfit</span></li>
+        <li>Demolish or gut <span>The only options left</span></li>
+      </ol>
+      <div class="prose">
+        <p>By the time a house gets a VBN, it usually needs demolition or a major renovation. Help is cheapest and easiest on the left side of that line. The City wants to find houses that are <span class="hl">slipping</span>, while the family can still stay, sell or fix it up.</p>
+        <p>If you've done tangled-titles outreach, you've already met this problem: families who can't get repair help or a loan because the deed is in a late relative's name. Those houses often start sliding toward that line.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Two things to know before you go out</h3>
+      <div class="prose">
+        <p><strong>Your survey doesn't give anyone a VBN.</strong> It doesn't create a citation, a fine or any enforcement. It's data for improving the model. Code enforcement decides VBNs, the way it always has.</p>
+        <p><strong>You won't see the model's score.</strong> The app knows which houses the model thinks are likely vacant, and it hides that from you on purpose. If you knew a house was "likely vacant," you'd look harder for problems and find them. Then the model would be learning from its own guesses. Your honest, independent read is the whole point.</p>
+      </div>
+    </div>
+    ${nextNav("why")}
+  </section>`;
+
+  const G = [
+    { q: "Baltimore was built for about a million people. About how many live here now?", min: 200000, max: 1000000, step: 10000, start: 800000, ans: 600000, fmt: v => v.toLocaleString(), tol: 60000, more: "The city has lost more than 350,000 people since 1950. That leaves far more houses than households." },
+    { q: "At the 2016 peak, how many buildings had a VBN?", min: 1000, max: 40000, step: 500, start: 5000, ans: 16000, fmt: v => v.toLocaleString(), tol: 2500, more: "About 16,000. The official count is now under 12,000." },
+    { q: "For every 10 vacant houses the City fixes up or clears, about how many new vacant houses show up?", min: 0, max: 10, step: 1, start: 1, ans: 5, fmt: v => v, tol: 1, more: "Nearly half. The i-Team found new vacancies cancel out almost half the progress, which is why prevention became its own priority." },
+  ];
+  const box = $("#guesses");
+  box.innerHTML = G.map((g, i) => `<div class="card guess">
+      <label for="g${i}">${esc(g.q)}</label>
+      <div class="val" id="gv${i}">${g.fmt(g.start)}</div>
+      <input type="range" id="g${i}" min="${g.min}" max="${g.max}" step="${g.step}" value="${g.start}">
+      <div class="row"><button class="btn" id="gb${i}">Lock it in</button></div>
+      <div class="reveal" id="gr${i}" aria-live="polite"></div>
+    </div>`).join("");
+  G.forEach((g, i) => {
+    const r = $("#g" + i), v = $("#gv" + i);
+    r.addEventListener("input", () => v.textContent = g.fmt(+r.value));
+    $("#gb" + i).addEventListener("click", (e) => {
+      const d = Math.abs(+r.value - g.ans), close = d <= g.tol;
+      r.disabled = true; e.target.disabled = true;
+      $("#gr" + i).innerHTML = `<div class="feedback ${close ? "good" : "meh"}"><strong>${close ? "Close!" : "Answer: " + g.fmt(g.ans)}</strong>${close ? "Answer: " + g.fmt(g.ans) + ". " : ""}${esc(g.more)}</div>`;
+    });
+  });
+
+  const set = (m) => {
+    $("#tModel").setAttribute("aria-pressed", m === "model"); $("#tReal").setAttribute("aria-pressed", m === "real");
+    $("#strip").innerHTML = rowStrip(m);
+    $("#stripNote").textContent = m === "model"
+      ? "The model knows about the three houses with a notice. Everything else looks fine to it."
+      : "Two more houses are empty but never got a notice, and one is starting to slip. Nobody records houses like these unless someone walks the block. That's you.";
+  };
+  $("#tModel").onclick = () => set("model"); $("#tReal").onclick = () => set("real");
+}
+
+function vLook() {
+  main.innerHTML = `<section class="view">
+    <div class="block">
+      <p class="kicker">Module 2 of 5</p>
+      <h2>How to look</h2>
+      <p class="lede">The survey asks you to look for specific signs, based on a checklist from Action Baybrook, a Baltimore nonprofit that has done this work for years. Your job is to notice and record. Working out what it all means is the City's job.</p>
+    </div>
+
+    <div class="block">
+      <h3>What you're looking for</h3>
+      <p>The app groups the signs the same way you'll see them on the screen:</p>
+      <div class="rule">
+        <div><span class="g">1</span><b>Distress</b><span class="n">The building's condition: boarded or broken windows and doors, roof or structure problems (sagging, a caving porch, a cracked foundation), a porch covered or piled with debris, trash, overgrowth, graffiti, facade damage</span></div>
+        <div><span class="g">2</span><b>Signs no one lives there</b><span class="n">Mail piling up, a lock box on the door, dirty, covered or bare windows, an empty or storage-packed interior, windows open or shut for the wrong season, fencing or sealed openings</span></div>
+        <div><span class="g">3</span><b>Signs someone is there</b><span class="n">People at the door, people going in without keys or through unusual openings, furniture or other signs of recent life</span></div>
+        <div><span class="g">4</span><b>What neighbors tell you</b><span class="n">Only if one talks to you, whether they say it's vacant or lived in</span></div>
+      </div>
+      <div class="feedback meh"><strong>Tick everything you see.</strong>Don't stop when a house "looks vacant enough," and don't skip small things. A house with only a few small signs is exactly what the City most needs to learn about.</div>
+      <div class="card">
+        <h3>Two things to know about the checklist</h3>
+        <div class="prose">
+          <p><strong>Windows get three boxes:</strong> dirty or clouded, covered with things that aren't curtains (blankets, towels, cardboard), or bare with no curtains or blinds at all. Tick every one that fits.</p>
+          <p><strong>Some items are new:</strong> open or missing windows and doors, the alley out back, yards too overgrown to reach the house, fire or smoke damage, broken trash bins, and torn or falling blinds. The i-Team added them to learn which signs matter most, so treat them like everything else.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Spot the signs</h3>
+      <p>Tap anything on this block that looks like a sign of distress or vacancy. There are <strong>8 signs</strong> on the middle house. There are also two things next door that look unusual but aren't signs.</p>
+      <div class="meter" aria-hidden="true"><i id="meter"></i></div>
+      <div class="card house" style="padding:10px">${houseSVG()}</div>
+      <p id="foundCount" class="mono" aria-live="polite">0 / 8 signs found</p>
+      <ul class="found-list" id="foundList"></ul>
+      <div class="row"><button class="btn" id="showAll">Show me the rest</button></div>
+      <div id="bxpQ" hidden class="feedback good"><strong>All 8 found.</strong>Every one of them goes in the app, each with a quick note on where and how much. Nothing next door gets ticked: formstone and painted screens are just Baltimore style.</div>
+    </div>
+
+    <div class="block">
+      <h3>Quick calls</h3>
+      <p class="muted">Four houses, described the way a partner might radio them in. What do you record?</p>
+      <div id="quick" class="block"></div>
+    </div>
+
+    <div class="block">
+      <h3>Write it like a surveyor</h3>
+      <div class="prose"><p>Your notes get read by people who never saw the house. Write down <span class="hl">what you saw, where, and how much</span>. Skip opinions, guesses about people, and words like "sketchy." Pick the better note.</p></div>
+      <div id="notes" class="block"></div>
+    </div>
+
+    <div class="block">
+      <h3>The distress score</h3>
+      <p>At the end you give the house one score. When it's between two levels, pick the closest one and say why in your comments.</p>
+      <div class="scale">
+        <div><b>0</b><span>No signs of distress</span><small>Well kept</small></div>
+        <div><b>1</b><span>Minor signs</span><small>Small upkeep issues; looks lived-in</small></div>
+        <div><b>2</b><span>Moderate</span><small>Clear signs of neglect</small></div>
+        <div><b>3</b><span>Severe</span><small>Major structural damage; open or boarded</small></div>
+        <div><b>4</b><span>Blue sky vacant</span><small>Open to the sky or collapsing; uninhabitable</small></div>
+      </div>
+      <p class="small muted">"Blue sky vacant" is Baltimore shorthand: the roof is gone and you can see sky through the windows.</p>
+    </div>
+
+    <div class="card">
+      <h3>The order you'll work in</h3>
+      <p class="muted small">The app runs from what's easiest to see objectively to what's hardest, with hearsay last.</p>
+      <ol class="steps">
+        <li><span><strong>Pick your group, then the property.</strong> You'll only see your group's list.</span></li>
+        <li><span><strong>Could you observe it?</strong> If not, everything after this is optional, but say why if you can: couldn't find it, unsafe, view blocked, or it's an empty lot.</span></li>
+        <li><span><strong>Register location</strong> while you're standing there.</span></li>
+        <li><span><strong>Distress:</strong> the building's physical condition.</span></li>
+        <li><span><strong>Occupancy:</strong> signs no one lives there, then signs someone does. Then give your overall call: <em>Occupied</em>, <em>Unsure</em> or <em>Vacant</em>. "Unsure" is an honest answer, not a cop-out.</span></li>
+        <li><span><strong>Neighbors:</strong> only if one talked to you.</span></li>
+        <li><span><strong>Score</strong> 0–4.</span></li>
+        <li><span><strong>Photos</strong> front and back, with how many houses from the corner and the house color.</span></li>
+        <li><span><strong>Comments</strong>, then submit or save a draft.</span></li>
+      </ol>
+      <p class="small muted">Something in the app not working? Tap the 🐞 button at the top. It sends a bug report straight to the team, even if you're offline.</p>
+    </div>
+    ${nextNav("look")}
+  </section>`;
+
+  // spot-the-signs
+  const found = new Set(); const order = [];
+  const total = HOUSE_SPOTS.filter(h => h.sign).length;
+  const pins = $("#pins");
+  function hit(id) {
+    if (found.has(id)) return;
+    const h = HOUSE_SPOTS.find(x => x.id === id);
+    found.add(id); order.push(id);
+    const el = main.querySelector(`.hs[data-id="${id}"]`); el.classList.add("found");
+    el.setAttribute("aria-label", "Found: " + h.name);
+    const signsSoFar = order.filter(i => HOUSE_SPOTS.find(x => x.id === i).sign).length;
+    const label = h.sign ? String(signsSoFar) : "✕";
+    if (h.sign) pins.insertAdjacentHTML("beforeend", `<g class="pin"><circle cx="${h.x + h.w - 6}" cy="${h.y + 8}" r="13"/><text x="${h.x + h.w - 6}" y="${h.y + 9}">${label}</text></g>`);
+    $("#foundList").insertAdjacentHTML("beforeend", `<li><span class="b ${h.sign ? "" : "x"}">${label}</span><span><strong>${esc(h.name)}</strong>${h.sign ? ` <span class="code">${esc(h.sec)}</span>` : ""}<br><span class="muted">${esc(h.note)}</span></span></li>`);
+    const n = [...found].filter(i => HOUSE_SPOTS.find(x => x.id === i).sign).length;
+    $("#foundCount").textContent = `${n} / ${total} signs found`;
+    $("#meter").style.width = (n / total * 100) + "%";
+    if (n === total) { $("#showAll").hidden = true; $("#bxpQ").hidden = false; }
+  }
+  main.querySelectorAll(".hs").forEach(el => {
+    el.addEventListener("click", () => hit(el.dataset.id));
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); hit(el.dataset.id); } });
+  });
+  $("#showAll").onclick = () => HOUSE_SPOTS.filter(h => h.sign).forEach(h => hit(h.id));
+  // quick calls
+  const Q = [
+    { h: "Grass and steps are neat. Mail is piling up, the windows are dirty, there's a lock box on the door, and through the window the rooms look empty.",
+      opts: ["Skip it. Four small things isn't enough to bother with.", "Record all four, each with a short note", "Record them, and add the overgrown yard next door to be thorough", "Record them and mark it Vacant to be safe"], a: 1, explain: " Small signs matter, especially on a house that otherwise looks fine. Only tick what's at this house, and give the occupancy rating that honestly fits. Unsure is fine." },
+    { h: "The house looks fine from outside. A woman next door says nobody's lived there since spring.",
+      opts: ["Leave it out, since it's secondhand", "Tick every “no one lives there” box", "Tick “A neighbor told me this property is vacant,” and note what she said and how she'd know", "Put it in comments only"], a: 2, explain: " Neighbors are a real source. Record what she said and how she'd know, for example that she's lived next door for ten years. It goes last on the form because it's secondhand." },
+    { h: "The front looks kept up. From down the street, you watch someone climb in through a basement window.",
+      opts: ["Tick “People going in or out… through unusual openings,” with the time and where, from where you are", "Walk closer to see who it is", "Take a photo of them for the record", "Don't record it. It's none of your business."], a: 0, explain: " Write down what you saw, not who did it. Don't go closer, and don't take their picture." },
+    { h: "The porch roof is caving in. Otherwise there are curtains, plants in the window and a car out front.",
+      opts: ["Only the porch, since that's the problem", "Only the signs of living, since people clearly live there", "Skip it. It's obviously occupied.", "Record the porch under Distress and the curtains and plants under “Signs someone is there”"], a: 3, explain: " Record both. Your occupancy rating here would likely be Occupied. Distress doesn't mean vacant, and that's why the form asks about both." },
+  ];
+  $("#quick").innerHTML = Q.map((q, i) => `<div class="card"><p class="scene-text">${esc(q.h)}</p><div id="qq${i}"></div></div>`).join("");
+  Q.forEach((q, i) => mcq($("#qq" + i), q));
+
+  // notes
+  const N = [
+    { a: "Looks abandoned.", b: "Two 2nd-floor front windows boarded with plywood. About 15 pieces of mail on the steps.", best: 1, why: "Someone reading the record later can check the second note against the photos. \"Abandoned\" is a conclusion, and drawing conclusions is the model's job." },
+    { a: "Two people went in through the rear basement window around 2:15pm.", b: "Sketchy people hanging around, probably using.", best: 0, why: "Say what they did and when. Don't guess who they are or why. You don't know, and a guess written down can hurt someone." },
+    { a: "Gross yard.", b: "Weeds about knee-high along the front. Three trash bags by the steps.", best: 1, why: "Say how much and where. That's what lets two observers' notes line up." },
+  ];
+  $("#notes").innerHTML = N.map((n, i) => `<div class="card"><div class="vs" id="nv${i}">
+      <button class="opt" data-k="0">${esc(n.a)}</button><button class="opt" data-k="1">${esc(n.b)}</button></div>
+      <div id="nf${i}" aria-live="polite"></div></div>`).join("");
+  N.forEach((n, i) => {
+    $("#nv" + i).querySelectorAll(".opt").forEach(b => b.onclick = () => {
+      const k = +b.dataset.k, ok = k === n.best;
+      $("#nv" + i).querySelectorAll(".opt").forEach((x, j) => { x.disabled = true; if (j === n.best) x.classList.add("right"); });
+      if (!ok) b.classList.add("wrong");
+      $("#nf" + i).innerHTML = `<div class="feedback ${ok ? "good" : "bad"}"><strong>${ok ? "That's the one." : "Other one."}</strong>${esc(n.why)}</div>`;
+    });
+  });
+}
+
+function vNorms() {
+  const S = [
+    { t: "You get to your first house. The app asks, “Could you observe the property?” A parked box truck is blocking most of the front.",
+      o: ["Tick yes and fill in what you can't see from what's typical on the block.", "Move along the sidewalk or wait a few minutes. If you still can't see it, answer no and pick “View blocked.”", "Skip this one and don't record anything."],
+      a: 1, w: ["Every box you tick has to be something you saw. Guessing from the rest of the block puts made-up data into the model.", "“I couldn't see it” is real data. It tells the i-Team the house needs another visit.", "A skipped house looks the same as one nobody visited. Recording that you couldn't see it is more useful."] },
+    { t: "You can see the house now. Time to register your location.",
+      o: ["Tap Register location now, while you're standing in front of it.", "Do it later on the bus, when you have better signal.", "Reuse the location from the last house, since it's on the same block."],
+      a: 0, w: ["The location is how the City knows which house your notes are about.", "If you have to fill it in later, the app lets you type where and when you saw it. Do that honestly. Just don't tap Register somewhere else, because that stamps the wrong place.", "Two houses on a block can be in very different shape. A location that's off by one house attaches your notes to the wrong address."] },
+    { t: "A woman on the next stoop calls out: “What are y'all doing taking pictures of houses?”",
+      o: ["“City business, ma'am,” and keep working.", "Stop. Say hi and your name, show your ID, and say you're volunteers with the City noting the outside condition of homes, to help find houses that need help early. Offer the page where she can check who you are.", "“We're checking which houses are vacant. This one's probably getting flagged.”"],
+      a: 1, w: ["Brushing people off is how rumors start. Neighbors have every right to ask.", "Be friendly, honest and brief. Residents get scam calls from fake “City” people all the time, so showing ID and a way to check matters.", "Never say a house is “flagged,” “condemned” or “getting a VBN.” It isn't true, and it can scare people or help scammers."] },
+    { t: "She warms up: “That one's been empty since Miss Dorothy passed. Her grandson still pays the water, though.”",
+      o: ["Tick “A neighbor told me this property is vacant,” and write what she said and how she knows (she lives next door).", "Tick vacant, and also tick “People going in or out” to be safe.", "Ignore it. Neighbors gossip."],
+      a: 0, w: ["Neighbor reports go last on the form, with your notes on how the person would know. The detail about the water bill is useful too, because it shows why the model's water data can miss a house like this.", "Only tick what you or she actually reported. Adding things “to be safe” makes the data less safe.", "Neighbors often know more than anyone. Record it, say where it came from, and let the City weigh it."] },
+    { t: "You go around back. The alley has twelve backs that all look the same.",
+      o: ["Count houses from the corner, the same way you did out front, and check the color. Put both in the app next to your back photos.", "Photograph whichever back looks most vacant.", "Ask a guy in the alley which one it is and skip the count."],
+      a: 0, w: ["Field testers found this was the hardest part of the survey. Counting from the corner on both sides is the fix.", "That's how you end up recording the wrong house, and it's guessing toward a result.", "He might be right, but he might not. Count for yourself, and you can note what he said."] },
+    { t: "From the alley you see someone climb out of the basement window of your house.",
+      o: ["Walk over and ask what they're doing.", "Keep your distance and don't take their picture. Once you're somewhere safe, tick “People going in or out… through unusual openings” and note the time and where. If it feels off, leave and tell your field lead.", "Call out to them and take a photo as evidence."],
+      a: 1, w: ["You're not security and you're not code enforcement. Approaching puts you and them at risk.", "Write down what happened, not who did it. And your safety matters more than any record. “Unsafe to approach” is always a valid answer.", "Never photograph people on purpose, and never confront anyone. You're collecting data, not evidence."] },
+    { t: "Scoring time. It's between Moderate and Severe. Your partner says, “Just put Severe so the City takes it seriously.”",
+      o: ["Put Severe. Your partner has done more of these.", "Pick the level whose description fits best, and say why in your comments. You and your partner can score differently.", "Leave the score blank since you're not sure."],
+      a: 1, w: ["A higher score doesn't get a house more attention. The score isn't a vote, and nudging it makes the data worse.", "The i-Team sometimes sends two people to the same house on purpose, to check how consistent the training is. Honest disagreement is useful.", "A best guess with a reason in your comments is more useful than a blank."] },
+    { t: "Lunch. Your group chat wants pics of “the creepiest house you saw today.”",
+      o: ["Post one but crop out the address.", "Don't share it. Survey photos stay in the app.", "Send it as a DM only."],
+      a: 1, w: ["People recognize their own block, and it's someone's grandmother's house. Even without the address, it's identifiable.", "Photos, addresses and notes are City data about real families. They go to the i-Team and nowhere else. That includes AI tools.", "A DM gets screenshotted just as easily. Same answer."] },
+  ];
+  let i = 0; const res = [];
+  main.innerHTML = `<section class="view">
+    <div class="block">
+      <p class="kicker">Module 3 of 5</p>
+      <h2>A day on the block</h2>
+      <p class="lede">Eight moments from a survey shift. Pick what you'd do. There's a best answer, and the reasons matter more than the letter.</p>
+    </div>
+    <div class="card" id="scene"></div>
+    <div id="normsEnd" hidden class="block"></div>
+    ${nextNav("norms")}
+  </section>`;
+  const scene = $("#scene");
+  function draw() {
+    const s = S[i];
+    scene.innerHTML = `<div class="scene-head"><span class="kicker">Situation ${i + 1} of ${S.length}</span>
+      <span class="dots" aria-hidden="true">${S.map((_, j) => `<i class="${res[j] === true ? "ok" : res[j] === false ? "no" : j === i ? "on" : ""}"></i>`).join("")}</span></div>
+      <p class="scene-text">${esc(s.t)}</p><div id="sm"></div><div class="row" id="sn"></div>`;
+    mcq($("#sm"), { opts: s.o, a: s.a, why: s.w.map(esc) }, (ok) => {
+      res[i] = ok;
+      $(".dots", scene).innerHTML = S.map((_, j) => `<i class="${res[j] === true ? "ok" : res[j] === false ? "no" : j === i ? "on" : ""}"></i>`).join("");
+      $("#sn").innerHTML = i < S.length - 1 ? `<button class="btn primary" id="go">Next situation →</button>` : `<button class="btn primary" id="go">See how you did</button>`;
+      $("#go").onclick = () => { if (i < S.length - 1) { i++; draw(); scene.scrollIntoView({ block: "start" }); } else end(); };
+    });
+  }
+  function end() {
+    const n = res.filter(Boolean).length;
+    scene.hidden = true;
+    const e = $("#normsEnd"); e.hidden = false;
+    e.innerHTML = `<div class="card"><span class="score-big">${n}/${S.length}</span>
+      <p>${n >= 7 ? "You've got good field instincts." : n >= 5 ? "Solid. Look back at the ones you missed, because they come up for real." : "Worth another run. These come up on every shift."}</p>
+      <h3>The norms, in short</h3>
+      <ul class="prose" style="padding-left:1.2em">
+        <li>Record only what you saw. “Couldn't see it” is a real answer.</li>
+        <li>Register your location at the house, or type the real place and time if you fill it in later.</li>
+        <li>Be friendly, honest and brief with residents. Show your ID, give them a way to check who you are, and never predict what will happen to a house.</li>
+        <li>Neighbor reports go last, along with how they'd know.</li>
+        <li>Count from the corner on both the front and the back.</li>
+        <li>Safety first. Never approach anyone, and leave if it feels off.</li>
+        <li>Your score is your own honest read.</li>
+        <li>Survey data stays in the app.</li>
+      </ul>
+      <div class="row"><button class="btn" id="again">Run it again</button></div></div>`;
+    $("#again").onclick = () => { i = 0; res.length = 0; e.hidden = true; scene.hidden = false; draw(); };
+    markDone("norms");
+  }
+  draw();
+}
+
+const LINES = [
+  ["Stay off private property.", "Stay on the public sidewalk, street or alley. Don't go onto porches, steps or yards, or through gates and fences. Never touch or open a door or window, and don't try to secure or board up a house yourself."],
+  ["Only record what you saw.", "Don't guess, copy from the house next door, fill anything in from Street View, or use AI to write entries. Don't go looking for the model's score, either."],
+  ["Never predict what happens to a home.", "Don't say a house is “flagged,” “condemned,” “getting a VBN” or “being taken.” The survey doesn't decide any of that."],
+  ["Never ask for money or personal info.", "That means no Social Security numbers, IDs, phone numbers or payments. Never offer to buy a house or pass anyone's details to buyers."],
+  ["Photograph houses, not people.", "No faces, kids or license plates on purpose. If someone asks you not to take a photo, stop."],
+  ["Survey data stays in the app.", "Photos, addresses and notes never go on social media, in group chats or into AI tools."],
+  ["Safety beats data.", "Never approach, follow or confront anyone. If it feels off, leave and choose “Unsafe to approach.”"],
+  ["Pairs, daylight, ID showing.", "Never survey alone or after dark, and keep your City ID visible.", true],
+];
+
+function vLines() {
+  const C = [
+    ["Stepping onto the porch to get a clearer photo of the door", "line", "Porches and steps are private property. Shoot from the sidewalk, zoom if you need to, and note what you couldn't see."],
+    ["Standing on the public sidewalk to photograph the front", "fine", "That's exactly where you should be."],
+    ["The front yard is so overgrown you push through the weeds to see the door", "line", "Stay on the sidewalk. Tick “Front yard so overgrown the property can't be reached.” That box exists so you don't have to go in."],
+    ["Chatting with a neighbor who comes out to talk", "fine", "Good, as long as you stay friendly and honest, and don't predict anything about the house."],
+    ["Telling a resident their house “might get condemned”", "line", "Never predict what happens to a home. It isn't your call, it isn't true, and it frightens people."],
+    ["A kid is playing on the steps next door, right in your frame", "judge", "Wait, or move until they're out of the shot. You never photograph people on purpose."],
+    ["Finishing the survey that evening at home, from what you saw", "judge", "That's okay if you really saw it. Type the real place and time, and leave out anything you're not sure of."],
+    ["Filling in the back section from Google Street View", "line", "That's making up an observation. If you couldn't see the back, say so."],
+    ["Asking a neighbor for their number so you can follow up", "line", "Don't collect personal info. If they want to reach the City, give them the official contact."],
+    ["A man asks if the City will buy his house. You say you don't know and point him to your field lead.", "fine", "That's the right move. Don't promise or guess, and pass it to someone who can actually help."],
+    ["Pasting your survey notes into an AI chatbot to clean up the writing", "line", "Survey data doesn't go into AI tools, and AI doesn't write records. Your plain words are fine."],
+    ["A loose dog in the yard, so you leave and mark “Unsafe to approach”", "fine", "Exactly right. Safety beats data, every time."],
+    ["Looking up the City's prediction for a house before you go", "line", "The score is hidden so it doesn't steer what you see. Going looking for it defeats the point."],
+    ["Ticking “mail piling up” because the house next door had mail", "line", "Only record what you saw at this house."],
+    ["A resident offers to let you into the backyard for a better look", "line", "Thank them, but say no. Volunteers stay on public ground even when they're invited in."],
+    ["Heading out alone after dark to finish your list", "line", "Pairs and daylight only. It's proposed as a rule, and it's smart either way."],
+  ];
+  main.innerHTML = `<section class="view">
+    <div class="block">
+      <p class="kicker">Module 4 of 5</p>
+      <h2>Hard lines</h2>
+      <p class="lede">Most of this job is judgment. These eight aren't. Break one and you can hurt a family, put yourself at risk, or spoil the data for everyone.</p>
+    </div>
+    <ol class="lines">${LINES.map((l, i) => `<li><span class="n">${i + 1}</span><span><b>${esc(l[0])} ${l[2] ? '<span class="prop">proposed</span>' : ""}</b><span>${esc(l[1])}</span></span></li>`).join("")}</ol>
+
+    <div class="block">
+      <h3>Fine, judgment call, or hard line?</h3>
+      <p class="muted">${C.length} situations. Sort each one.</p>
+      <div class="sorter card">
+        <div class="scene-head"><span class="kicker" id="sc">1 of ${C.length}</span><span class="mono" id="ss">0 right</span></div>
+        <div class="sort-card" id="scard"></div>
+        <div class="bins">
+          <button class="bin fine" data-b="fine">Fine</button>
+          <button class="bin judge" data-b="judge">Judgment</button>
+          <button class="bin line" data-b="line">Hard line</button>
+        </div>
+        <div id="sfb" aria-live="polite"></div>
+        <div class="row" id="snext"></div>
+      </div>
+    </div>
+    ${nextNav("lines")}
+  </section>`;
+  let i = 0, right = 0;
+  const names = { fine: "Fine", judge: "Judgment call", line: "Hard line" };
+  const bins = main.querySelectorAll(".bin");
+  function draw() {
+    $("#sc").textContent = `${i + 1} of ${C.length}`;
+    $("#scard").textContent = C[i][0];
+    $("#sfb").innerHTML = ""; $("#snext").innerHTML = "";
+    bins.forEach(b => b.disabled = false);
+  }
+  bins.forEach(b => b.onclick = () => {
+    const [, ans, why] = C[i], ok = b.dataset.b === ans;
+    if (ok) right++;
+    bins.forEach(x => x.disabled = true);
+    $("#ss").textContent = `${right} right`;
+    $("#sfb").innerHTML = `<div class="feedback ${ok ? "good" : "bad"}"><strong>${ok ? "Right: " : "It's a "}${names[ans].toLowerCase()}.</strong>${esc(why)}</div>`;
+    const last = i === C.length - 1;
+    $("#snext").innerHTML = `<button class="btn primary" id="sgo">${last ? "Finish" : "Next →"}</button>`;
+    $("#sgo").onclick = () => {
+      if (!last) { i++; draw(); return; }
+      $("#scard").innerHTML = `<span><span class="score-big">${right}/${C.length}</span><br><span class="muted">${right >= C.length - 2 ? "You know where the lines are." : "Look back over the eight lines above. They're on your pocket card too."}</span></span>`;
+      $("#sfb").innerHTML = ""; $("#snext").innerHTML = `<button class="btn" id="sre">Sort again</button>`;
+      $("#sre").onclick = () => { i = 0; right = 0; $("#ss").textContent = "0 right"; draw(); };
+      markDone("lines");
+    };
+  });
+  draw();
+}
+
+function vTest() {
+  const T = [
+    { q: "What is a VBN?", opts: ["A score the model gives each house", "An official notice from the City's housing department that a building is vacant and unfit to live in", "A form volunteers fill out", "A fine for not mowing"], a: 1 },
+    { q: "Why does the City want people to survey houses that don't have a VBN?", opts: ["To issue more VBNs", "Because the model only learns from houses that already have one, so it misses vacant houses that never got a notice", "To check on residents", "To find houses to sell"], a: 1 },
+    { q: "A house has only a few small signs: some mail and dirty windows. What do you do?", opts: ["Add a couple more so it's worth recording", "Skip it, since it barely looks vacant", "Record exactly what you saw", "Score it Blue sky vacant"], a: 2 },
+    { q: "Which note is best?", opts: ["“Looks bad.”", "“Probably squatters.”", "“Front door open about a foot; no one seen; 3 trash bags on steps.”", "“Abandoned for sure.”"], a: 2 },
+    { q: "Why does the app hide the model's score from you?", opts: ["It's a secret", "So it doesn't nudge what you record, which would teach the model its own guesses", "It isn't ready yet", "Volunteers aren't allowed to read data"], a: 1 },
+    { q: "A resident asks, “Is my house on some kind of list?” Best reply?", opts: ["“Yeah, you might be flagged.”", "“I can't say anything.” Then walk away.", "Explain you're volunteers noting outside conditions to help the City find homes that need help early. Say the survey doesn't create notices or fines, and show them how to check who you are.", "Ask for their phone number so the City can call them"], a: 2 },
+    { q: "The back gate is open. You could see the yard if you stepped in. What do you do?", opts: ["Step in quickly", "Stay in the alley. Photograph what you can, or note “No access to the back or alley.”", "Ask a neighbor to go in for you", "Climb up for a better angle"], a: 1 },
+    { q: "Your partner scores the house a 2. You think it's a 3. What now?", opts: ["Change yours to match", "Each of you records your own honest score and explains it in comments", "Average it to 2.5", "Let the more senior person decide"], a: 1 },
+  ];
+  let i = 0, right = 0;
+  main.innerHTML = `<section class="view">
+    <div class="block">
+      <p class="kicker">Module 5 of 5</p>
+      <h2>Field test</h2>
+      <p class="lede">Eight questions. Get 7 right and you're field ready. You can retake it as often as you like.</p>
+    </div>
+    <div class="card" id="tq"></div>
+    <div id="tend" class="block"></div>
+    <div class="next"><a class="btn" href="#lines">← Hard lines</a><a class="btn" href="#pocket">Pocket card →</a></div>
+  </section>`;
+  const box = $("#tq");
+  function badge() {
+    return `<div class="badge"><div class="seal">Field<br>ready</div><div class="block" style="gap:6px">
+      <span class="kicker">Block by Block · VBN field survey</span>
+      <h3>${esc(state.name || "Your name here")}</h3>
+      <span class="muted">Completed ${esc(state.passedOn)}. Knows the survey checklist, field norms and the eight hard lines.</span></div></div>`;
+  }
+  function showBadge() {
+    $("#tend").innerHTML = `${badge()}
+      <div class="row"><label for="nm" class="small">Name on badge</label></div>
+      <input type="text" id="nm" value="${esc(state.name)}" placeholder="First and last name" autocomplete="name">
+      <p class="muted small">Screenshot this and send it to your program lead. Then screenshot the pocket card for the field.</p>
+      <div class="row"><button class="btn" id="retake">Retake the test</button></div>`;
+    $("#nm").addEventListener("input", (e) => { state.name = e.target.value; save(); $("#tend .badge h3").textContent = state.name || "Your name here"; });
+    $("#retake").onclick = () => { i = 0; right = 0; $("#tend").innerHTML = ""; box.hidden = false; draw(); };
+  }
+  function draw() {
+    const q = T[i];
+    box.innerHTML = `<div class="scene-head"><span class="kicker">Question ${i + 1} of ${T.length}</span><span class="mono">${right} right</span></div>
+      <p class="scene-text"><strong>${esc(q.q)}</strong></p><div id="tm"></div><div class="row" id="tn"></div>`;
+    mcq($("#tm"), q, (ok) => {
+      if (ok) right++;
+      $("#tn").innerHTML = `<button class="btn primary" id="tgo">${i < T.length - 1 ? "Next →" : "Finish"}</button>`;
+      $("#tgo").onclick = () => { if (i < T.length - 1) { i++; draw(); } else finish(); };
+    });
+  }
+  function finish() {
+    box.hidden = true;
+    if (right >= 7) {
+      state.passed = true; state.passedOn = new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }); save();
+      markDone("test");
+      showBadge();
+      $("#tend").insertAdjacentHTML("afterbegin", `<div class="card"><span class="score-big">${right}/8</span><p>You're field ready.</p></div>`);
+    } else {
+      $("#tend").innerHTML = `<div class="card"><span class="score-big">${right}/8</span><p>Almost. You need 7. Look back at module 2 or 4, then try again.</p><div class="row"><button class="btn primary" id="retry">Try again</button></div></div>`;
+      $("#retry").onclick = () => { i = 0; right = 0; $("#tend").innerHTML = ""; box.hidden = false; draw(); };
+    }
+  }
+  if (state.passed) { box.hidden = true; showBadge(); } else draw();
+}
+
+function vPocket() {
+  main.innerHTML = `<section class="view">
+    <div class="block">
+      <p class="kicker">Screenshot this</p>
+      <h2>Pocket card</h2>
+    </div>
+    <div class="pocket">
+      <h2><span class="hl">Block</span> by Block</h2>
+      <div class="block" style="gap:6px">
+        <span class="lbl">At every house</span>
+        <ol>
+          <li>Pick your group, then the property.</li>
+          <li>Could you see it? If not, say why.</li>
+          <li>Register location while you're there.</li>
+          <li>Distress, then occupancy and your call (Occupied / Unsure / Vacant), then neighbors.</li>
+          <li>Score 0–4. Explain in-betweens.</li>
+          <li>Front and back photos. Count from the corner, note the color.</li>
+          <li>Comments, then submit or save a draft.</li>
+        </ol>
+      </div>
+      <div class="block" style="gap:6px">
+        <span class="lbl">If someone asks what you're doing</span>
+        <p class="say">“Hi, I'm [name], a volunteer with the City. We're noting the outside condition of homes so the City can find houses that need help early. This doesn't create any notices or fines. Here's my ID, and here's where you can check who we are.”</p>
+      </div>
+      <div class="never">
+        <span class="lbl">Never</span>
+        <ul>
+          <li>Step onto private property, or touch a door or window</li>
+          <li>Record anything you didn't see</li>
+          <li>Say a home is flagged, condemned or getting a VBN</li>
+          <li>Ask for money, IDs or contact info</li>
+          <li>Photograph people on purpose</li>
+          <li>Share survey photos or data, including with AI</li>
+          <li>Approach or confront anyone. Leave if unsafe.</li>
+          <li>Go alone or after dark <span class="prop">proposed</span></li>
+        </ul>
+      </div>
+      <p class="small muted">Not sure? Ask your field lead. “Unsafe to approach” and “couldn't see it” are always valid answers. App acting up? Tap 🐞.</p>
+    </div>
+  </section>`;
+}
+
+function vGuide() {
+  main.innerHTML = `<section class="view">
+    <div class="block">
+      <p class="kicker">For program staff and i-Team facilitators</p>
+      <h2>Facilitator guide</h2>
+      <p class="lede">A 2-hour, in-person session for a cohort of up to about 20 Service Year Fellows. It pairs the modules on this page with group activities. Fellows can do the modules beforehand, or you can project them in the room.</p>
+    </div>
+
+    <div class="card">
+      <h3>Before the session</h3>
+      <ul class="check">
+        <li>Confirm the rules marked <span class="prop">proposed</span> with the i-Team: pairs, daylight only, City photo ID, and the resident verification page and phone line.</li>
+        <li>Pick 3–4 real photos from the October field test. Blur faces and plates, and remove the addresses. You'll use them for the calibration exercise.</li>
+        <li>Set up app practice. The current version (v3) is at <span class="mono">hasanzahra27-commits.github.io/baltimore-vbn-field-survey/v3/</span> and still uses fake sample addresses. Check that's still true before the session. On the i-Team dashboard, put the practice properties in a group named after the cohort.</li>
+        <li>Print the role-play cards below (one set per 4 fellows) and blank scoring sheets.</li>
+        <li>Invite a code enforcement officer or DHCD data team member for the Q&amp;A, if possible.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>Run of show</h3>
+      <div class="tablewrap card" style="padding:4px 16px">
+        <table class="agenda">
+          <thead><tr><th>Time</th><th>Block</th><th>How</th></tr></thead>
+          <tbody>
+            <tr><td>0:00</td><td><b>Guess the numbers</b>10 min</td><td>Project Module 1's three sliders. Fellows guess by standing along a line across the room, then reveal. Ask: who on your block would have guessed closest?</td></tr>
+            <tr><td>0:10</td><td><b>The blind spot</b>15 min</td><td>Ten volunteers stand up as "houses." Three get a VBN sticky note. The "model" (the facilitator) can only learn from stickers. Quietly tell two more that they're empty with no notice. Ask the room: how would the model ever learn about them? Then flip the Module 1 toggle.</td></tr>
+            <tr><td>0:25</td><td><b>Why early matters</b>10 min</td><td>Walk the timeline from lived-in to demolished. Link it to their tangled-titles work: where on the line do those families usually sit? Make two points clearly: the survey creates no VBNs, and observers never see the score.</td></tr>
+            <tr><td>0:35</td><td><b>Calibration round</b>20 min</td><td>Show the field-test photos one at a time. Each fellow silently ticks signs and gives a 0–4 score on paper. Reveal the spread. Talk through where people disagreed and why. The more alike fellows' ticks and scores are on the same photo, the better the data.</td></tr>
+            <tr><td>0:55</td><td><b>Break</b>10 min</td><td></td></tr>
+            <tr><td>1:05</td><td><b>Stoop role-plays</b>25 min</td><td>Groups of four: two surveyors, one resident (with a card), one observer. Rotate roles every 5 minutes. The observer checks for the pocket-card script and any hard line crossed.</td></tr>
+            <tr><td>1:30</td><td><b>Line or fine</b>10 min</td><td>Read the Module 4 situations aloud. Stand for "hard line," sit for "fine," and put a hand up for "judgment call." Spend time on the judgment calls.</td></tr>
+            <tr><td>1:40</td><td><b>App walk-through</b>10 min</td><td>Everyone adds the practice app to their home screen, picks the cohort's group and surveys one fake property start to finish. That includes the occupancy rating, saving a draft, a back photo with the corner count, and sending one test bug report with 🐞.</td></tr>
+            <tr><td>1:50</td><td><b>Field test and Q&amp;A</b>10 min</td><td>Fellows take Module 5 on their phones and show their badge. Open the floor to the guest. Hand out the pocket card.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">If you can, add a supervised 45-minute block walk on a pre-picked block on a later day, before fellows survey on their own.</p>
+    </div>
+
+    <div class="block">
+      <h3>Role-play cards</h3>
+      <p class="muted small">Give one card to the "resident." The surveyors don't see it.</p>
+      <div class="rp">
+        <div><b>The worried owner</b><span>“Is my house on some list? I'm behind on my taxes. Are y'all going to take it?”</span><span class="muted small">Watch for: no predictions; a calm explanation; how to verify who you are; passing the question to the field lead.</span></div>
+        <div><b>The block historian</b><span>Knows everyone. Tells a long story about who used to live in the house next door, and says it's been empty two years.</span><span class="muted small">Watch for: recording the neighbor report with how they'd know, while staying polite and on schedule.</span></div>
+        <div><b>The skeptic</b><span>“Y'all from a developer? People call me every week trying to buy my house.”</span><span class="muted small">Watch for: showing ID, never mentioning buying, pointing to the official verification page.</span></div>
+        <div><b>The helper</b><span>“Come on back through the gate, you can see the whole yard from my porch.”</span><span class="muted small">Watch for: a friendly no. Stay on public ground, even when you're invited in.</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Debrief questions</h3>
+      <ul class="prose" style="padding-left:1.2em">
+        <li>Which hard line would be easiest to cross by accident on a long day? What would stop you?</li>
+        <li>When you disagreed with a partner on a score, whose answer was "right"? (Trick question.)</li>
+        <li>Who in your neighborhood would want to know this survey is happening? How should they find out?</li>
+        <li>What would make you trust a stranger photographing your house?</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Notes for facilitators</h3>
+      <div class="prose small">
+        <p><strong>GPS and timestamps</strong> are for data quality only. Tell fellows plainly that they won't be used to rank or discipline anyone. This comes from the i-Team adoption policy proposal.</p>
+        <p><strong>Tell fellows a model chose the sample</strong>, and that they won't see its scores, and why. The adoption policy proposal asks for this.</p>
+        <p><strong>Keep real addresses and photos out of the training</strong>, apart from the blurred, address-free calibration photos.</p>
+        <p><strong>Keep the focus on recording what fellows see</strong>, not on whether a house "counts" as vacant.</p>
+        <p>Checklist wording follows survey app v3 (Oct 31, 2026). If the checklist changes, update Module 2 and the field test to match.</p>
+      </div>
+    </div>
+  </section>`;
+}
+
+const RENDER = { start: vStart, why: vWhy, look: vLook, norms: vNorms, lines: vLines, test: vTest, pocket: vPocket, guide: vGuide };
+function route() {
+  const v = current();
+  RENDER[v]();
+  renderChrome(v);
+  window.scrollTo(0, 0);
+  main.querySelectorAll("[data-finish]").forEach(a => a.addEventListener("click", () => markDone(a.dataset.finish)));
+}
+window.addEventListener("hashchange", route);
+route();
+})();
+</script>
+</body>
+</html>

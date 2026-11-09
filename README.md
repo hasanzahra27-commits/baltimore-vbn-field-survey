@@ -6,6 +6,8 @@ This is a mobile web app for field researchers to record whether sampled propert
 >
 > **i-Team dashboard:** https://hasanzahra27-commits.github.io/baltimore-vbn-field-survey/v3/dashboard/ (password protected). It shows live survey progress and summary statistics, and is where the i-Team assigns properties to volunteer groups. See [how it works](v3/README.md#i-team-dashboard).
 >
+> **Volunteer training:** https://hasanzahra27-commits.github.io/baltimore-vbn-field-survey/training/ (*Block by Block*, in [`training/`](training/)). It's an interactive training for Service Year Fellows: five short modules, a pocket card to screenshot, and a facilitator guide. It's a draft, and the rules marked "proposed" still need i-Team sign-off.
+>
 > **Handing the app off?** See [HANDOFF.md](HANDOFF.md). It's a one-page guide to moving the app and its data to the Baltimore i-Team, and optionally on to DHCD.
 
 **What researchers do:** enter their name, role and code-enforcement status once. Then, for each property:
